@@ -179,7 +179,8 @@
                 </div>
                 <p class="text-rose-100">Descarga los materiales de lectura complementarios del Diplomado.</p>
             </div>
-            <div class="p-6 sm:p-8 grid md:grid-cols-2 gap-6">
+            <div class="p-6 sm:p-8 grid md:grid-cols-3 gap-6">
+                <!-- Libro 1 -->
                 <div class="bg-stone-50 rounded-2xl p-5 border border-stone-200 flex flex-col">
                     <div class="flex items-center gap-4 mb-4">
                         <div class="w-16 h-20 bg-gradient-to-br from-rose-700 to-purple-800 rounded-lg shadow-lg flex items-center justify-center">
@@ -195,6 +196,8 @@
                         <span class="iconify text-lg" data-icon="lucide:download"></span>Descargar PDF
                     </button>
                 </div>
+
+                <!-- Libro 2 -->
                 <div class="bg-stone-50 rounded-2xl p-5 border border-stone-200 flex flex-col">
                     <div class="flex items-center gap-4 mb-4">
                         <div class="w-16 h-20 bg-gradient-to-br from-purple-800 to-fuchsia-800 rounded-lg shadow-lg flex items-center justify-center">
@@ -207,6 +210,23 @@
                     </div>
                     <p class="text-sm text-stone-600 mb-4 flex-grow">Diagnóstico, bioquímica y tecnologías de recuperación. Guía completa para salvar vinos defectuosos.</p>
                     <button onclick="descargarPDF('defectos')" class="w-full flex items-center justify-center gap-2 bg-purple-700 hover:bg-purple-800 text-white text-sm font-semibold px-4 py-3 rounded-xl transition-colors">
+                        <span class="iconify text-lg" data-icon="lucide:download"></span>Descargar PDF
+                    </button>
+                </div>
+
+                <!-- Libro 3 -->
+                <div class="bg-stone-50 rounded-2xl p-5 border border-stone-200 flex flex-col">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-16 h-20 bg-gradient-to-br from-emerald-700 to-teal-800 rounded-lg shadow-lg flex items-center justify-center">
+                            <span class="iconify text-white text-3xl" data-icon="lucide:microscope"></span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-stone-800">Microbiología del Vino</h3>
+                            <p class="text-xs text-stone-500">Jose Guerrero · 2025</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-stone-600 mb-4 flex-grow">Ciencia, flora microbiana y procesos fermentativos. Levaduras, bacterias lácticas y control de alteraciones.</p>
+                    <button onclick="descargarPDF('microbiologia')" class="w-full flex items-center justify-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white text-sm font-semibold px-4 py-3 rounded-xl transition-colors">
                         <span class="iconify text-lg" data-icon="lucide:download"></span>Descargar PDF
                     </button>
                 </div>
@@ -225,11 +245,12 @@
 
 <script>
 // =================================================================
-// ARCHIVOS PDF LOCALES (Deben estar en la misma carpeta que este HTML)
+// ARCHIVOS PDF LOCALES (Nombres exactos para GitHub)
 // =================================================================
 var pdfFiles = {
-    bioquimica: "Bioquimica_del_Vino.pdf",
-    defectos: "Defectos_y_Correcciones_del_Vino.pdf"
+    bioquimica: "Bioquímica del Vino - Jose Guerrero.pdf",
+    defectos: "Defectos, Enfermedades y Correcciones del Vino - Jose Guerrero.pdf",
+    microbiologia: "Microbiología del Vino - Jose Guerrero.pdf"
 };
 
 var courseData = [
@@ -500,14 +521,17 @@ function confirmReset(){
     showToast('Progreso reiniciado','info');
 }
 
-// Función para descargar PDFs locales (fuerza la descarga directa)
+// Función para descargar PDFs locales (maneja espacios y caracteres especiales en la URL)
 function descargarPDF(tipo) {
     var fileName = pdfFiles[tipo];
     if(!fileName) return;
     
+    // encodeURI traduce los espacios a %20 y las tildes correctamente para la URL
+    var fileUrl = encodeURI(fileName);
+    
     var a = document.createElement('a');
-    a.href = fileName;
-    a.download = fileName; // Esto le dice al navegador que lo descargue en lugar de abrirlo
+    a.href = fileUrl; 
+    a.download = fileName; // El atributo download mantiene el nombre original con espacios
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
