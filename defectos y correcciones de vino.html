@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Defectos, Enfermedades y Correcciones del Vino - Jose Guerrero</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #4A1526;      /* Borgoña oscuro / Defecto */
+    --secondary: #37474F;    /* Pizarra / Corrección química */
+    --accent: #D35400;       /* Ámbar alerta / Advertencia */
+    --text: #2C2C2C;
+    --text-light: #555555;
+    --bg: #FFFFFF;
+    --bg-cream: #FDFAF5;
+    --border: #E0D8C8;
+    --highlight: #C0392B;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Source Sans Pro', Georgia, serif; font-size: 11pt; line-height: 1.7; color: var(--text); background: #E0E0E0; }
+  .page { width: 210mm; min-height: 297mm; margin: 20px auto; padding: 25mm 22mm 25mm 22mm; background: var(--bg); box-shadow: 0 2px 20px rgba(0,0,0,0.15); position: relative; page-break-after: always; overflow: hidden; }
+  .page::after { content: ''; position: absolute; bottom: 15mm; left: 22mm; right: 22mm; height: 1px; background: linear-gradient(to right, transparent, var(--border), transparent); }
+  .cover-page { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 30mm 25mm; background: linear-gradient(175deg, #FDFAF5 0%, #F0ECE4 40%, #E5DDD0 100%); }
+  .cover-ornament-top, .cover-ornament-bottom { width: 100%; height: 8px; background: linear-gradient(to right, transparent, var(--accent), var(--primary), var(--secondary), transparent); border-radius: 4px; }
+  .cover-ornament-top { margin-bottom: 40px; } .cover-ornament-bottom { margin-top: 40px; }
+  .cover-title { font-family: 'Playfair Display', Georgia, serif; font-size: 28pt; font-weight: 900; color: var(--primary); line-height: 1.1; margin-bottom: 10px; }
+  .cover-subtitle { font-family: 'Playfair Display', Georgia, serif; font-size: 15pt; font-weight: 400; font-style: italic; color: var(--secondary); margin-bottom: 40px; }
+  .cover-divider { width: 120px; height: 2px; background: var(--accent); margin: 0 auto 40px; }
+  .cover-author-label { font-size: 10pt; text-transform: uppercase; letter-spacing: 3px; color: var(--text-light); margin-bottom: 6px; }
+  .cover-author { font-family: 'Playfair Display', Georgia, serif; font-size: 18pt; font-weight: 700; color: var(--accent); margin-bottom: 50px; }
+  .cover-year { font-size: 11pt; color: var(--text-light); letter-spacing: 2px; }
+  .chapter-page { display: flex; flex-direction: column; justify-content: center; padding: 40mm 25mm; background: linear-gradient(180deg, #FFFFFF 0%, #FBF9F5 100%); }
+  .chapter-number { font-family: 'Playfair Display', Georgia, serif; font-size: 14pt; text-transform: uppercase; letter-spacing: 4px; color: var(--accent); margin-bottom: 15px; }
+  .chapter-title { font-family: 'Playfair Display', Georgia, serif; font-size: 28pt; font-weight: 900; color: var(--primary); line-height: 1.2; margin-bottom: 20px; }
+  .chapter-line { width: 80px; height: 3px; background: var(--accent); margin-bottom: 25px; }
+  .chapter-intro { font-size: 12pt; font-style: italic; color: var(--text-light); line-height: 1.8; max-width: 85%; }
+  h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 18pt; font-weight: 700; color: var(--primary); margin-top: 10px; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid var(--border); }
+  h3 { font-family: 'Playfair Display', Georgia, serif; font-size: 13pt; font-weight: 700; color: var(--secondary); margin-top: 18px; margin-bottom: 8px; }
+  h4 { font-size: 11pt; font-weight: 700; color: var(--accent); margin-top: 14px; margin-bottom: 6px; }
+  p { margin-bottom: 10px; text-align: justify; hyphens: auto; }
+  .first-paragraph::first-letter { font-family: 'Playfair Display', Georgia, serif; font-size: 32pt; float: left; line-height: 1; margin-right: 6px; margin-top: 4px; color: var(--accent); font-weight: 900; }
+  .info-box { background: var(--bg-cream); border-left: 4px solid var(--secondary); border-radius: 0 6px 6px 0; padding: 14px 16px; margin: 16px 0; font-size: 10pt; }
+  .info-box-title { font-weight: 700; color: var(--secondary); margin-bottom: 4px; font-size: 10.5pt; }
+  .warning-box { background: #FFF5F0; border-left: 4px solid var(--accent); border-radius: 0 6px 6px 0; padding: 14px 16px; margin: 16px 0; font-size: 10pt; }
+  .warning-box-title { font-weight: 700; color: var(--accent); margin-bottom: 4px; font-size: 10.5pt; }
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 9.5pt; }
+  thead th { background: var(--primary); color: white; padding: 8px 10px; text-align: left; font-weight: 600; font-size: 9pt; text-transform: uppercase; letter-spacing: 0.5px; }
+  tbody td { padding: 7px 10px; border-bottom: 1px solid #E8DFD0; vertical-align: top; }
+  tbody tr:nth-child(even) { background: #FBF7F0; }
+  ul, ol { margin: 8px 0 12px 20px; } li { margin-bottom: 4px; }
+  blockquote { border-left: 3px solid var(--secondary); margin: 16px 0; padding: 10px 18px; font-style: italic; color: var(--text-light); background: var(--bg-cream); border-radius: 0 4px 4px 0; }
+  blockquote cite { display: block; margin-top: 6px; font-size: 9pt; font-style: normal; font-weight: 600; color: var(--secondary); }
+  .page-header { position: absolute; top: 12mm; left: 22mm; right: 22mm; font-size: 8pt; color: #B0A08A; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid #E8DFD0; padding-bottom: 4px; display: flex; justify-content: space-between; }
+  .page-footer { position: absolute; bottom: 10mm; left: 22mm; right: 22mm; text-align: center; font-size: 9pt; color: #B0A08A; }
+  .toc-title { font-family: 'Playfair Display', Georgia, serif; font-size: 24pt; font-weight: 900; color: var(--primary); margin-bottom: 30px; text-align: center; }
+  .toc-entry { display: flex; justify-content: space-between; align-items: baseline; padding: 6px 0; border-bottom: 1px dotted #D4C5A9; font-size: 11pt; }
+  .toc-entry-chapter { font-weight: 700; color: var(--primary); font-size: 12pt; padding: 10px 0 4px; border-bottom: none; margin-top: 8px; }
+  .toc-entry-section { padding-left: 20px; font-size: 10.5pt; color: var(--text); }
+  .toc-page { color: var(--accent); font-weight: 600; min-width: 30px; text-align: right; }
+  .reference { font-size: 9.5pt; line-height: 1.6; margin-bottom: 8px; padding-left: 28px; text-indent: -28px; text-align: left; }
+  .reference-number { font-weight: 700; color: var(--accent); }
+  .species { font-style: italic; }
+  .figure { margin: 16px 0; text-align: center; page-break-inside: avoid; }
+  .figure svg { max-width: 100%; height: auto; }
+  .figure-caption { font-size: 9pt; color: var(--text-light); font-style: italic; margin-top: 6px; line-height: 1.4; }
+  @media print { body { background: white; } .page { margin: 0; box-shadow: none; page-break-after: always; width: 100%; min-height: auto; padding: 20mm 18mm; } .page::after { display: none; } .no-print { display: none !important; } }
+  .print-btn { position: fixed; bottom: 30px; right: 30px; background: var(--primary); color: white; border: none; padding: 14px 28px; font-size: 13pt; font-family: 'Source Sans Pro', sans-serif; font-weight: 600; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 16px rgba(74,21,38,0.4); z-index: 1000; transition: background 0.2s; }
+  .print-btn:hover { background: var(--secondary); }
+</style>
+</head>
+<body>
+<button class="print-btn no-print" onclick="window.print()">🖨 Imprimir / Guardar PDF</button>
+
+<!-- P1: PORTADA -->
+<div class="page cover-page">
+  <div class="cover-ornament-top"></div>
+  <svg width="90" height="90" viewBox="0 0 100 100" style="margin-bottom:30px; opacity:0.6;">
+    <circle cx="50" cy="50" r="40" fill="none" stroke="#4A1526" stroke-width="2"/>
+    <line x1="30" y1="30" x2="70" y2="70" stroke="#C0392B" stroke-width="2.5"/>
+    <line x1="70" y1="30" x2="30" y2="70" stroke="#C0392B" stroke-width="2.5"/>
+    <circle cx="50" cy="50" r="20" fill="none" stroke="#37474F" stroke-width="1.5" stroke-dasharray="4,3"/>
+  </svg>
+  <div class="cover-title">Defectos, Enfermedades<br>y Correcciones del Vino</div>
+  <div class="cover-subtitle">Diagnóstico, Bioquímica y Tecnologías de Recuperación</div>
+  <div class="cover-divider"></div>
+  <div class="cover-author-label">Autor</div>
+  <div class="cover-author">Jose Guerrero</div>
+  <div class="cover-year">2025</div>
+  <div class="cover-ornament-bottom"></div>
+</div>
+
+<!-- P2: CREDITOS -->
+<div class="page" style="display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;">
+  <div style="max-width:75%; margin:auto;">
+    <p style="font-family:'Playfair Display',serif; font-size:14pt; color:var(--primary); margin-bottom:30px; font-weight:700;">Defectos, Enfermedades y Correcciones del Vino</p>
+    <p style="font-size:10pt; color:var(--text-light); line-height:1.8; margin-bottom:20px;">Diagnóstico, Bioquímica y Tecnologías de Recuperación</p>
+    <p style="font-size:10pt; color:var(--text-light); margin-bottom:20px;">Primera edición — 2025</p>
+    <hr style="border:none; border-top:1px solid var(--border); margin:25px auto; width:60%;">
+    <p style="font-size:10pt; color:var(--text-light); margin-bottom:12px;"><strong>Autor:</strong> Jose Guerrero</p>
+    <hr style="border:none; border-top:1px solid var(--border); margin:25px auto; width:60%;">
+    <p style="font-size:9pt; color:#999; line-height:1.6;">Este documento está destinado exclusivamente a fines educativos y de investigación.</p>
+    <p style="font-size:9pt; color:#999; margin-top:30px;">© 2025 Jose Guerrero. Todos los derechos reservados.</p>
+  </div>
+</div>
+
+<!-- P3-4: INDICE -->
+<div class="page">
+  <div class="page-header"><span>Jose Guerrero</span><span>Defectos, Enfermedades y Correcciones</span></div>
+  <div class="toc-title">Índice de Contenidos</div>
+  <div class="toc-entry toc-entry-chapter"><span>Capítulo 1 — Fundamentos: Defecto vs. Enfermedad vs. Estilo</span></div>
+  <div class="toc-entry toc-entry-section"><span>1.1 Definiciones y umbrales de percepción</span><span class="toc-page">5</span></div>
+  <div class="toc-entry toc-entry-section"><span>1.2 La subjetividad del defecto: contexto cultural</span><span class="toc-page">6</span></div>
+  <div class="toc-entry toc-entry-chapter"><span>Capítulo 2 — Defectos Reductivos y Compuestos Azufrados</span></div>
+  <div class="toc-entry toc-entry-section"><span>2.1 Metabolismo del azufre en la levadura</span><span class="toc-page">7</span></div>
+  <div class="toc-entry toc-entry-section"><span>2.2 Sulfuro de hidrógeno (H₂S): formación y factores</span><span class="toc-page">8</span></div>
+  <div class="toc-entry toc-entry-section"><span>2.3 Mercaptanos y disulfuros: la evolución del defecto</span><span class="toc-page">9</span></div>
+  <div class="toc-entry toc-entry-section"><span>2.4 Correcciones: cobre, aireación y tratamientos enológicos</span><span class="toc-page">10</span></div>
+  <div class="toc-entry toc-entry-chapter"><span>Capítulo 3 — Defectos Oxidativos y Química del Oxígeno</span></div>
+  <div class="toc-entry toc-entry-section"><span>3.1 Oxidación enzimática: polifenol oxidasas y lacasa</span><span class="toc-page">11</span></div>
+  <div class="toc-entry toc-entry-section"><span>3.2 Oxidación química: cascada fenólica y quinonas</span><span class="toc-page">12</span></div>
+  <div class="toc-entry toc-entry-section"><span>3.3 Acetaldehído, sotolón y pardeamiento</span><span class="toc-page">13</span></div>
+  <div class="toc-entry toc-entry-section"><span>3.4 Correcciones: carbón, PVPP, caseína y enología protectora</span><span class="toc-page">14</span></div>
+  <div class="toc-entry toc-entry-section"><span>3.5 El "pinking" de los vinos blancos</span><span class="toc-page">15</span></div>
+  <div class="toc-entry toc-entry-chapter"><span>Capítulo 4 — Enfermedades de Origen Microbiano</span></div>
+  <div class="toc-entry toc-entry-section"><span>4.1 Brettanomyces: bioquímica del fenol volátil</span><span class="toc-page">16</span></div>
+  <div class="toc-entry toc-entry-section"><span>4.2 Acetobacter y la acidez volátil</span><span class="toc-page">17</span></div>
+  <div class="toc-entry toc-entry-section"><span>4.3 Enfermedades lácticas: tourne, amertume y graisse</span><span class="toc-page">18</span></div>
+  <div class="toc-entry toc-entry-section"><span>4.4 Flor velum: ¿defecto o estilo?</span><span class="toc-page">19</span></div>
+  <div class="toc-entry toc-entry-section"><span>4.5 Correcciones microbiológicas: DMDC, lisozima, chitosano</span><span class="toc-page">20</span></div>
+  <div class="toc-entry toc-entry-chapter"><span>Capítulo 5 — Defectos de Origen Químico y Físico</span></div>
+  <div class="toc-entry toc-entry-section"><span>5.1 TCA y haloanisoles: el sabor a corcho</span><span class="toc-page">21</span></div>
+  <div class="toc-entry toc-entry-section"><span>5.2 Geosmina y MIB: defectos terrosos</span><span class="toc-page">22</span></div>
+  <div class="toc-entry toc-entry-section"><span>5.3 Quiebras: férrica, cúprica, protéica y tartárica</span><span class="toc-page">23</span></div>
+  <div class="toc-entry toc-entry-section"><span>5.4 Correcciones de quiebras y estabilización</span><span class="toc-page">24</span></div>
+  <div class="page-footer">3</div>
+</div>
+<div class="page">
+  <div class="page-header"><span>Jose Guerrero</span><span>Defectos, Enfermedades y Correcciones</span></div>
+  <div class="toc-title" style="visibility:hidden;">Índice</div>
+  <div class="toc-entry toc-entry-chapter"><span>Capítulo 6 — Tecnologías de Corrección y Legislación</span></div>
+  <div class="toc-entry toc-entry-section"><span>6.1 Ósmosis inversa y nanofiltración para VA</span><span class="toc-page">25</span></div>
+  <div class="toc-entry toc-entry-section"><span>6.2 Carbones activos: selectividad y dosificación</span><span class="toc-page">26</span></div>
+  <div class="toc-entry toc-entry-section"><span>6.3 Tratamientos con taninos enológicos protectores</span><span class="toc-page">27</span></div>
+  <div class="toc-entry toc-entry-section"><span>6.4 El marco legal: prácticas autorizadas y límites OIV</span><span class="toc-page">28</span></div>
+  <div class="toc-entry toc-entry-chapter"><span>Apéndices y Referencias</span></div>
+  <div class="toc-entry toc-entry-section"><span>A.1 Tabla de umbrales sensoriales de defectos</span><span class="toc-page">29</span></div>
+  <div class="toc-entry toc-entry-section"><span>A.2 Tabla de correcciones y límites legales</span><span class="toc-page">30</span></div>
+  <div class="toc-entry toc-entry-section"><span>Referencias Bibliográficas</span><span class="toc-page">31</span></div>
+  <div class="page-footer">4</div>
+</div>
+
+<!-- P5: CAP 1 TITULO -->
+<div class="page chapter-page">
+  <div class="chapter-number">Capítulo 1</div>
+  <div class="chapter-title">Fundamentos: Defecto vs. Enfermedad vs. Estilo</div>
+  <div class="chapter-line"></div>
+  <div class="chapter-intro">No todo lo que parece un defecto lo es. La línea entre un fallo inaceptable, una enfermedad activa y una característica estilística es a menudo una cuestión de contexto, concentración y expectativa cultural.</div>
+</div>
+
+<!-- P6 -->
+<div class="page">
+  <div class="page-header"><span>Capítulo 1 — Fundamentos</span><span>Defectos y Correcciones</span></div>
+  <h2>1.1 Definiciones y umbrales de percepción</h2>
+  <p class="first-paragraph">En enología, es crucial distinguir tres conceptos que frecuentemente se confunden:</p>
+  <ul>
+    <li><strong>Defecto (falta):</strong> Una desviación sensorial causada por un compuesto químico o proceso físico que degrada la calidad esperada del vino. El vino es estable pero sensorialmente defectuoso (ej. exceso de SO₂, sabor a corcho, reducción).</li>
+    <li><strong>Enfermedad:</strong> Una alteración causada por microorganismos vivos que están activamente modificando la composición del vino. El proceso es dinámico y, si no se detiene, empeorará con el tiempo (ej. picado acético, refermentación, graisse).</li>
+    <li><strong>Depósito o alteración física:</strong> Un cambio físico que no afecta al sabor pero sí a la presentación (ej. cristales de tartrato, turbidez proteica). No es un defecto sensorial, pero sí comercial.</li>
+  </ul>
+  <h3>Umbrales de percepción</h3>
+  <p>Un compuesto solo es un defecto si su concentración supera el <strong>umbral de percepción</strong> en la matriz del vino. El umbral depende del tipo de vino, la temperatura y la sensibilidad individual. El ácido acético, por ejemplo, tiene un umbral de detección de 0.2-0.4 g/L en agua, pero de 0.7-1.0 g/L en vino tinto, donde la matriz (etanol, polifenoles) lo enmascara parcialmente.</p>
+  <h2>1.2 La subjetividad del defecto: contexto cultural</h2>
+  <p>Lo que en una cultura vinícola se considera un defecto grave, en otra puede ser un atributo deseado. Los ejemplos más paradigmáticos son:</p>
+  <ul>
+    <li><strong>Acetaldehído:</strong> Defecto (olor a manzana oxidada, nuez rancia) en la mayoría de los vinos, pero característica esencial del Jerez y los vinos generosos.</li>
+    <li><strong>Volatile acidity:</strong> Indeseable en un Borgoña tinto, pero contribuye a la complejidad del Amarone o del Oporto Vintage.</li>
+    <li><strong>Brettanomyces:</strong> Rechazado en la mayoría de las denominaciones de origen, pero buscado en ciertos vinos naturales y en el Rhône tradicional.</li>
+    <li><strong>Flor velum:</strong> Un velo de levaduras que causa un defecto (floración) en vinos tranquilos, pero es la base biológica del Jerez y del Vin Jaune.</li>
+  </ul>
+  <blockquote>
+    «El defecto no está en la molécula, sino en el ojo (y la copa) del catador. La enología no es solo ciencia; es también un pacto cultural entre productor y consumidor.»
+    <cite>— Aforismo enológico</cite>
+  </blockquote>
+  <div class="page-footer">6</div>
+</div>
+
+<!-- P7: CAP 2 TITULO -->
+<div class="page chapter-page">
+  <div class="chapter-number">Capítulo 2</div>
+  <div class="chapter-title">Defectos Reductivos y Compuestos Azufrados</div>
+  <div class="chapter-line"></div>
+  <div class="chapter-intro">Los defectos reductivos son los más frecuentes y, paradójicamente, los más prevenibles. Surgen cuando el metabolismo del azufre de la levadura se desvía hacia la producción de compuestos volátiles con olores extremadamente potentes y desagradables.</div>
+</div>
+
+<!-- P8 -->
+<div class="page">
+  <div class="page-header"><span>Capítulo 2 — Defectos Reductivos</span><span>Defectos y Correcciones</span></div>
+  <h2>2.1 Metabolismo del azufre en la levadura</h2>
+  <p class="first-paragraph">Las levaduras utilizan compuestos azufrados para sintetizar los aminoácidos azufrados (metionina y cisteína) y los cofactores (CoA, hierro-azufre). La vía de asimilación reduce el sulfato (SO₄²⁻) a sulfuro (S²⁻) a través de múltiples pasos enzimáticos. El sulfuro es entonces incorporado a la cadena de aminoácidos. Sin embargo, si la levadura no dispone de suficiente nitrógeno asimilable (aminoácidos o amonio) para completar la síntesis, el sulfuro se acumula y es excretado como <strong>H₂S</strong>.</p>
+  <div class="figure">
+    <svg width="380" height="160" viewBox="0 0 380 160">
+      <rect x="5" y="5" width="370" height="150" rx="8" fill="#FDFAF5" stroke="#E0D8C8" stroke-width="1"/>
+      <text x="190" y="25" text-anchor="middle" font-size="10" font-weight="bold" fill="#4A1526">Vía de asimilación del azufre en S. cerevisiae</text>
+      <rect x="20" y="50" width="60" height="30" rx="4" fill="#37474F" opacity="0.8"/>
+      <text x="50" y="69" text-anchor="middle" font-size="9" fill="white">SO₄²⁻</text>
+      <line x1="80" y1="65" x2="110" y2="65" stroke="#37474F" stroke-width="1.5" marker-end="url(#arrS)"/>
+      <rect x="110" y="50" width="60" height="30" rx="4" fill="#37474F" opacity="0.6"/>
+      <text x="140" y="69" text-anchor="middle" font-size="9" fill="white">SO₃²⁻</text>
+      <line x1="170" y1="65" x2="200" y2="65" stroke="#37474F" stroke-width="1.5" marker-end="url(#arrS)"/>
+      <rect x="200" y="50" width="50" height="30" rx="4" fill="#C0392B" opacity="0.8"/>
+      <text x="225" y="69" text-anchor="middle" font-size="9" fill="white">H₂S</text>
+      <line x1="250" y1="65" x2="280" y2="65" stroke="#D35400" stroke-width="1.5" marker-end="url(#arrS)"/>
+      <rect x="280" y="40" width="80" height="30" rx="4" fill="#2E7D32" opacity="0.8"/>
+      <text x="320" y="59" text-anchor="middle" font-size="9" fill="white">Metionina</text>
+      <rect x="280" y="80" width="80" height="30" rx="4" fill="#2E7D32" opacity="0.8"/>
+      <text x="320" y="99" text-anchor="middle" font-size="9" fill="white">Cisteína</text>
+      <text x="265" y="50" font-size="8" fill="#D35400">+ N</text>
+      <text x="265" y="105" font-size="8" fill="#D35400">+ N</text>
+      <text x="190" y="140" text-anchor="middle" font-size="9" fill="#C0392B">Si falta Nitrógeno (N): H₂S se acumula y se excreta → DEFECTO</text>
+      <defs><marker id="arrS" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#37474F"/></marker></defs>
+    </svg>
+    <div class="figure-caption">Figura 2.1 — Vía simplificada de asimilación del sulfato y producción de H₂S por deficiencia de nitrógeno.</div>
+  </div>
+  <h2>2.2 Sulfuro de hidrógeno (H₂S): formación y factores</h2>
+  <p>El H₂S es el compuesto reductivo más común. Tiene un olor a huevos podridos con un umbral de percepción extremadamente bajo (1-2 μg/L en agua, 10-50 μg/L en vino). Los factores que favorecen su producción son:</p>
+  <ul>
+    <li><strong>Deficiencia de nitrógeno asimilable (YAN < 120 mg/L):</strong> La causa principal. Sin nitrógeno, la levadura no puede convertir el sulfuro en aminoácidos.</li>
+    <li><strong>Alta adición de SO₂:</strong> El dióxido de azufre es reducido a H₂S por la levadura como mecanismo de detoxificación.</li>
+    <li><strong>Alta relación fructosa/glucosa:</strong> En las últimas fases de la fermentación, la fructosa residual es metabolizada más lentamente, favoreciendo la producción de H₂S.</li>
+    <li><strong>Deficiencia de vitaminas (tiamina, piridoxina):</strong> Cofactores necesarios para la vía de asimilación del azufre.</li>
+    <li><strong>Cepas de levadura:</strong> Algunas cepas tienen un metabolismo azufrado más desfavorable.</li>
+  </ul>
+  <div class="page-footer">8</div>
+</div>
+
+<!-- P9 -->
+<div class="page">
+  <div class="page-header"><span>Capítulo 2 — Defectos Reductivos</span><span>Defectos y Correcciones</span></div>
+  <h2>2.3 Mercaptanos y disulfuros: la evolución del defecto</h2>
+  <p>El H₂S es solo el primer escalón de una cascada de compuestos azufrados cada vez más complejos y difíciles de eliminar. Si el H₂S no se elimina rápidamente, reacciona con otros compuestos del vino para formar <strong>mercaptanos</strong> (tioles) y, posteriormente, <strong>disulfuros</strong>.</p>
+  <table>
+    <thead><tr><th>Compuesto</th><th>Aroma</th><th>Umbral (μg/L)</th><th>Tratabilidad</th></tr></thead>
+    <tbody>
+      <tr><td>H₂S</td><td>Huevos podridos</td><td>1-10</td><td>Fácil (aireación, cobre)</td></tr>
+      <tr><td>Metanotiol (MeSH)</td><td>Col cocida, repollo</td><td>0.3-3</td><td>Moderada (cobre)</td></tr>
+      <tr><td>Etanotiol (EtSH)</td><td>Cebolla, goma quemada</td><td>1-10</td><td>Moderada (cobre)</td></tr>
+      <tr><td>4-mercapto-4-metilpentan-2-ona</td><td>Grosella, boxwood</td><td>0.001-0.05</td><td>Deseable en Sauvignon Blanc, defecto en tintos</td></tr>
+      <tr><td>Dimetil sulfuro (DMS)</td><td>Maíz, espárrago, trufa</td><td>25-60</td><td>Muy difícil (no responde a cobre)</td></tr>
+      <tr><td>Disulfuro de dimetilo (DMDS)</td><td>Verdura cocida, ajo</td><td>15-30</td><td>Debe reducirse a mercaptano primero</td></tr>
+    </tbody>
+  </table>
+  <div class="warning-box">
+    <div class="warning-box-title">⚠ La trampa del cobre con disulfuros</div>
+    El cobre (Cu²⁺) reacciona con los mercaptanos formando sales insolubles (CuSR), pero NO reacciona con los disulfuros (R-S-S-R). Muchos enólogos aplican cobre a un vino con olor a "ajo/verduras" (disulfuros) sin resultado. El tratamiento correcto requiere primero añadir un agente reductor (como el SO₂ o el ácido ascórbico) para romper el disulfuro en dos mercaptanos, y luego aplicar el cobre.
+  </div>
+  <h2>2.4 Correcciones: cobre, aireación y tratamientos enológicas</h2>
+  <h3>Tratamiento con sulfato de cobre (CuSO₄)</h3>
+  <p>El método más extendido y eficaz contra H₂S y mercaptanos. El cobre reacciona formando sulfuro cúprico (CuS) o complejos cobre-mercaptano que precipitan. La dosis habitual es de 0.5-2.0 g/hL de CuSO₄·5H₂O (equivalente a 1.3-5.0 mg/L de Cu²⁺). La legislación de la OIV establece un límite máximo de 1 mg/L de cobre residual en el vino.</p>
+  <h3>Correcciones alternativas</h3>
+  <ul>
+    <li><strong>Aireación:</strong> El H₂S es volátil; una aireación suave durante el trasiego puede eliminarlo si se actúa de inmediato. Sin embargo, la aireación oxida los mercaptanos a disulfuros, empeorando el problema a largo plazo.</li>
+    <li><strong>Levadura fresca:</strong> La adición de levadura inactiva o lías frescas puede "fijar" los compuestos azufrados por adsorción.</li>
+    <li><strong>Carbón activo:</strong> Eficaz para DMS, pero poco selectivo; elimina también aromas deseables.</li>
+  </ul>
+  <div class="page-footer">9</div>
+</div>
+
+<!-- P10: CAP 3 TITULO -->
+<div class="page chapter-page">
+  <div class="chapter-number">Capítulo 3</div>
+  <div class="chapter-title">Defectos Oxidativos y Química del Oxígeno</div>
+  <div class="chapter-line"></div>
+  <div class="chapter-intro">El oxígeno es el mejor amigo y el peor enemigo del vino. En dosis precisas, redondea los taninos y estabiliza el color; en exceso, destruye aromas, pardea el color y convierte un vino fresco en un líquido marchito.</div>
+</div>
+
+<!-- P11 -->
+<div class="page">
+  <div class="page-header"><span>Capítulo 3 — Defectos Oxidativos</span><span>Defectos y Correcciones</span></div>
+  <h2>3.1 Oxidación enzimática: polifenol oxidasas y lacasa</h2>
+  <p class="first-paragraph">La oxidación enzimática es la forma más rápida y devastadora de alteración oxidativa. Ocurre principalmente en mostos (no en vinos, donde el etanol y el SO₂ inhiben las enzimas) y está catalizada por dos enzimas:</p>
+  <ul>
+    <li><strong>Polifenol oxidasa (PPO / tirosinasa):</strong> Presente de forma natural en la uva. Oxida los monofenoles y difenoles a quinonas. Es inhibida por el SO₂ y el etanol.</li>
+    <li><strong>Lacasa:</strong> Producida por hongos, especialmente <span class="species">Botrytis cinerea</span>. Es mucho más peligrosa porque oxida un espectro más amplio de sustratos (incluyendo antocianos), no es inhibida por el SO₂ a las dosis habituales, y permanece activa incluso con 10-12% de etanol. Es la responsable del pardeamiento rápido de los mostos provenientes de uvas botritizadas.</li>
+  </ul>
+  <h2>3.2 Oxidación química: cascada fenólica y quinonas</h2>
+  <p>En el vino, la oxidación es predominantemente química (no enzimática). Los metales de transición (hierro Fe²⁺ y cobre Cu⁺) actúan como catalizadores que activan el oxígeno molecular, generando especies reactivas (ROS) que oxidan los fenoles a quinonas. Las quinonas son altamente reactivas y polimerizan entre sí o con otros compuestos (tiolos, aminoácidos), formando pigmentos marrones y perdiendo aromas varietales.</p>
+  <div class="figure">
+    <svg width="380" height="140" viewBox="0 0 380 140">
+      <rect x="5" y="5" width="370" height="130" rx="8" fill="#FDFAF5" stroke="#E0D8C8" stroke-width="1"/>
+      <text x="190" y="25" text-anchor="middle" font-size="10" font-weight="bold" fill="#4A1526">Ciclo de oxidación química catalizada por metales</text>
+      <rect x="20" y="55" width="80" height="30" rx="4" fill="#37474F" opacity="0.8"/>
+      <text x="60" y="74" text-anchor="middle" font-size="9" fill="white">Fenol</text>
+      <line x1="100" y1="70" x2="140" y2="70" stroke="#C0392B" stroke-width="2" marker-end="url(#arrOx)"/>
+      <text x="120" y="62" text-anchor="middle" font-size="8" fill="#C0392B">Fe²⁺/Cu⁺</text>
+      <rect x="140" y="55" width="80" height="30" rx="4" fill="#C0392B" opacity="0.8"/>
+      <text x="180" y="74" text-anchor="middle" font-size="9" fill="white">Quinona</text>
+      <line x1="220" y1="70" x2="260" y2="70" stroke="#D35400" stroke-width="2" marker-end="url(#arrOx)"/>
+      <rect x="260" y="45" width="90" height="30" rx="4" fill="#8B4513" opacity="0.8"/>
+      <text x="305" y="64" text-anchor="middle" font-size="9" fill="white">Polímero marrón</text>
+      <rect x="260" y="85" width="90" height="30" rx="4" fill="#D35400" opacity="0.8"/>
+      <text x="305" y="104" text-anchor="middle" font-size="9" fill="white">Pérdida de aromas</text>
+      <defs><marker id="arrOx" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#555"/></marker></defs>
+    </svg>
+    <div class="figure-caption">Figura 3.1 — Cascada oxidativa en el vino mediada por metales de transición.</div>
+  </div>
+  <div class="page-footer">11</div>
+</div>
+
+<!-- P12 -->
+<div class="page">
+  <div class="page-header"><span>Capítulo 3 — Defectos Oxidativos</span><span>Defectos y Correcciones</span></div>
+  <h2>3.3 Acetaldehído, sotolón y pardeamiento</h2>
+  <p>Los tres marcadores analíticos y sensoriales más importantes de la oxidación en el vino son:</p>
+  <h3>Acetaldehído (CH₃CHO)</h3>
+  <p>El compuesto carbonílico más abundante en el vino. En vinos sanos, su concentración oscila entre 20-80 mg/L. En vinos oxidados, puede superar los 200 mg/L. Su umbral sensorial es de 100-125 mg/L. Aporta notas de manzana oxidada, nuez y jerez rancio. El SO₂ se combina con el acetaldehído formando el aducto hidroxisulfonato, que es inodoro; por ello, un vino con SO₂ alto puede estar oxidado sin mostrarlo sensorialmente hasta que el SO₂ se agota.</p>
+  <h3>Sotolón (4,5-dimetil-3-hidroxi-2(5H)-furanona)</h3>
+  <p>Compuesto clave del aroma a "vino rancio", curry, nuez y higo. Se forma por oxidación del ácido 2-oxobutírico o por la reacción de Maillard durante el envejecimiento prolongado. Su umbral es muy bajo (7-10 μg/L en vino blanco). Es el marcador de la oxidación avanzada y, a diferencia del acetaldehído, no se puede corregir una vez formado.</p>
+  <h2>3.4 Correcciones: carbón, PVPP, caseína y enología protectora</h2>
+  <p>La corrección de la oxidación es limitada. La prevención (enología protectora: inertización con N₂/Ar, gestión del SO₂, control de temperatura) es siempre más eficaz. Las correcciones disponibles son:</p>
+  <ul>
+    <li><strong>Carbón activo decolorante:</strong> Adsorbe quinonas y pigmentos marrones, pero también elimina aromas y color deseables. Último recurso.</li>
+    <li><strong>PVPP (Polivinilpolipirrolidona):</strong> Adsorbe selectivamente compuestos fenólicos, reduciendo la capacidad oxidativa residual. Menos agresivo que el carbón.</li>
+    <li><strong>Caseína:</strong> Precipita con los taninos oxidados y las quinonas, reduciendo el pardeamiento en blancos.</li>
+    <li><strong>Adición de SO₂:</strong> Enmascara el acetaldehído (combinación) y reduce las quinonas, pero no revierte la oxidación profunda.</li>
+  </ul>
+  <h2>3.5 El "pinking" de los vinos blancos</h2>
+  <p>El "pinking" es la aparición de un tono rosado indeseable en vinos blancos tras una oxidación súbita. Se debe a la conversión rápida de compuestos fenólicos incoloros (probablemente protoantocianidinas) en formas coloreadas por la acción del oxígeno. Es más frecuente en vinos blancos elaborados con uvas muy sanas (bajo estrés, pocas polifenol oxidasas) y con escaso contacto con oxígeno durante la elaboración. Se previene con PVPP o pequeñas dosis de carbón activo antes del embotellado.</p>
+  <div class="page-footer">13</div>
+</div>
+
+<!-- P13: CAP 4 TITULO -->
+<div class="page chapter-page">
+  <div class="chapter-number">Capítulo 4</div>
+  <div class="chapter-title">Enfermedades de Origen Microbiano</div>
+  <div class="chapter-line"></div>
+  <div class="chapter-intro">Las enfermedades del vino son alteraciones dinámicas causadas por microorganismos vivos que continúan modificando la composición del vino hasta que se detiene su actividad. A diferencia de los defectos químicos, las enfermedades empeoran con el tiempo si no se interviene.</div>
+</div>
+
+<!-- P14 -->
+<div class="page">
+  <div class="page-header"><span>Capítulo 4 — Enfermedades Microbianas</span><span>Defectos y Correcciones</span></div>
+  <h2>4.1 Brettanomyces: bioquímica del fenol volátil</h2>
+  <p class="first-paragraph"><span class="species">Brettanomyces bruxellensis</span> es la levadura de alteración más temida en la industria del vino. Su peligro reside en su capacidad de convertir los ácidos hidroxicinámicos naturales del vino en fenoles volátiles con olores intensos y desagradables.</p>
+  <div class="figure">
+    <svg width="380" height="150" viewBox="0 0 380 150">
+      <rect x="5" y="5" width="370" height="140" rx="8" fill="#FDFAF5" stroke="#E0D8C8" stroke-width="1"/>
+      <text x="190" y="25" text-anchor="middle" font-size="10" font-weight="bold" fill="#4A1526">Vía de producción de fenoles volátiles por Brettanomyces</text>
+      <rect x="20" y="55" width="80" height="30" rx="4" fill="#37474F" opacity="0.8"/>
+      <text x="60" y="70" text-anchor="middle" font-size="8" fill="white">Ác. p-cumárico</text>
+      <line x1="100" y1="70" x2="140" y2="70" stroke="#37474F" stroke-width="1.5" marker-end="url(#arrB)"/>
+      <text x="120" y="62" text-anchor="middle" font-size="7" fill="#37474F">HCDC</text>
+      <rect x="140" y="55" width="70" height="30" rx="4" fill="#D35400" opacity="0.8"/>
+      <text x="175" y="70" text-anchor="middle" font-size="8" fill="white">4-vinilfenol</text>
+      <line x1="210" y1="70" x2="250" y2="70" stroke="#D35400" stroke-width="1.5" marker-end="url(#arrB)"/>
+      <text x="230" y="62" text-anchor="middle" font-size="7" fill="#D35400">VPR</text>
+      <rect x="250" y="55" width="70" height="30" rx="4" fill="#C0392B" opacity="0.9"/>
+      <text x="285" y="70" text-anchor="middle" font-size="8" fill="white">4-ETILFENOL</text>
+      <rect x="20" y="100" width="80" height="30" rx="4" fill="#37474F" opacity="0.8"/>
+      <text x="60" y="115" text-anchor="middle" font-size="8" fill="white">Ác. ferúlico</text>
+      <line x1="100" y1="115" x2="140" y2="115" stroke="#37474F" stroke-width="1.5" marker-end="url(#arrB)"/>
+      <text x="120" y="107" text-anchor="middle" font-size="7" fill="#37474F">HCDC</text>
+      <rect x="140" y="100" width="70" height="30" rx="4" fill="#D35400" opacity="0.8"/>
+      <text x="175" y="115" text-anchor="middle" font-size="8" fill="white">4-vinilguayacol</text>
+      <line x1="210" y1="115" x2="250" y2="115" stroke="#D35400" stroke-width="1.5" marker-end="url(#arrB)"/>
+      <text x="230" y="107" text-anchor="middle" font-size="7" fill="#D35400">VPR</text>
+      <rect x="250" y="100" width="90" height="30" rx="4" fill="#C0392B" opacity="0.9"/>
+      <text x="295" y="115" text-anchor="middle" font-size="8" fill="white">4-ETILGUAYACOL</text>
+      <defs><marker id="arrB" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#37474F"/></marker></defs>
+    </svg>
+    <div class="figure-caption">Figura 4.1 — Ruta metabólica de formación de 4-etilfenol y 4-etilguayacol por Brettanomyces.</div>
+  </div>
+  <p>El 4-etilfenol (4-EP) aporta olores a establo, sudor, fenol y barniz (umbral: 140-620 μg/L). El 4-etilguayacol (4-EG) aporta olores a ahumado, clavo y especias (umbral: 35-110 μg/L). La relación 4-EP/4-EG varía según la cepa, pero suele ser de 7:1 a 12:1 en vinos tintos contaminados.</p>
+  <h3>Correcciones para Brettanomyces</h3>
+  <ul>
+    <li><strong>SO₂:</strong> Preventivo (inhibe pero no erradica). Mantener SO₂ libre > 30 mg/L.</li>
+    <li><strong>DMDC (dimetil dicarbonato):</strong> Letal a dosis de 100-200 mg/L, pero solo eficaz al embotellar.</li>
+    <li><strong>Chitosano:</strong> Polímero natural que flocula las células de Brettanomyces. Autorizado por la OIV (Resolución OIV-OENO 338A-2009).</li>
+    <li><strong>Filtración estéril (0.45 μm):</strong> Elimina las células pero no los fenoles volátiles ya formados.</li>
+    <li><strong>Carbón activo:</strong> Único tratamiento eficaz para eliminar los fenoles volátiles ya presentes, pero muy poco selectivo.</li>
+  </ul>
+  <div class="page-footer">16</div>
+</div>
+
+<!-- P15 -->
+<div class="page">
+  <div class="page-header"><span>Capítulo 4 — Enfermedades Microbianas</span><span>Defectos y Correcciones</span></div>
+  <h2>4.2 Acetobacter y la acidez volátil</h2>
+  <p>Las bacterias acéticas (géneros <span class="species">Acetobacter</span> y <span class="species">Gluconobacter</span>) son aerobias estrictas que oxidan el etanol a ácido acético (acidez volátil). El ácido acético reacciona con el etanol formando acetato de etilo, que aporta un aroma a disolvente o quitaesmalte.</p>
+  <p>La acidez volátil (AV) es el parámetro legal que engloba todos los ácidos grasos volátiles del vino (predominantemente el ácido acético). Los límites de la OIV son 1.2 g/L para tintos y 1.08 g/L para blancos. Superar estos límites hace el vino no apto para el consumo.</p>
+  <h3>Corrección de la acidez volátil</h3>
+  <p>La corrección de la AV es uno de los mayores desafíos enológicos. Las opciones son limitadas:</p>
+  <ul>
+    <li><strong>Ósmosis inversa + lavado iónico:</strong> El vino se concentra por ósmosis inversa, y el permeado (agua + etanol + AV) se pasa por una resina aniónica que retiene el acetato. Es la técnica más eficaz, capaz de reducir la AV en 0.2-0.5 g/L, pero es costosa y puede desequilibrar el vino.</li>
+    <li><strong>Mezcla con vinos de baja AV:</strong> La solución más antigua y sencilla, pero diluye la calidad si el volumen de mezcla es alto.</li>
+    <li><strong>Destilación parcial al vacío:</strong> Elimina los compuestos volátiles, pero también los aromas.</li>
+  </ul>
+  <h2>4.3 Enfermedades lácticas: tourne, amertume y graisse</h2>
+  <p>Cuando las bacterias lácticas degradan componentes del vino distintos al ácido málico, se producen enfermedades específicas:</p>
+  <h3>Enfermedad de la vuelta (tourne)</h3>
+  <p>Ciertas cepas de <span class="species">Lactobacillus</span> metabolizan la fructosa del vino, produciendo ácido láctico, acetato y CO₂ (que hace el vino "chisporroteante"). El pH sube, el vino pierde acidez y se vuelve propicio para otras bacterias. El vino adquiere un sabor a vinagre diluido.</p>
+  <h3>Amargor (amertume)</h3>
+  <p>Las bacterias lácticas degradan el glicerol (el alcohol que aporta dulzor y cuerpo al vino) en β-hidroxipropionaldehído, que se polimeriza formando compuestos amargos. El vino se vuelve progresivamente más amargo con el tiempo, un defecto irreversible.</p>
+  <h3>Enfermedad de la grasa (graisse)</h3>
+  <p><span class="species">Pediococcus damnosus</span> produce exopolisacáridos (β-glucanos) que confieren al vino una textura viscosa y desagradable, similar a la clara de huevo. El vino "cae en hilos" al verterlo. Se corrige mediante adición de enzimas β-glucanasas que degradan los polisacáridos, seguidas de filtración.</p>
+  <div class="page-footer">17</div>
+</div>
+
+<!-- P16 -->
+<div class="page">
+  <div class="page-header"><span>Capítulo 4 — Enfermedades Microbianas</span><span>Defectos y Correcciones</span></div>
+  <h2>4.4 Flor velum: ¿defecto o estilo?</h2>
+  <p>La "flor" es un biofilm formado por levaduras oxidativas (principalmente <span class="species">Saccharomyces cerevisiae</span> var. <span class="species">beticus</span>) que crece en la superficie del vino en contacto con el aire. Metaboliza el etanol y el glicerol, produciendo acetaldehído y compuestos aromáticos característicos.</p>
+  <p>En los vinos de Jerez, el Fino y la Manzanilla, la flor es esencial y confiere los aromas a almendra, levadura y pan. Sin embargo, si aparece espontáneamente en un vino tinto o blanco no diseñado para ello, se considera un defecto grave (aroma a rancio, avinagrado, oxidado).</p>
+  <h2>4.5 Correcciones microbiológicas: DMDC, lisozima, chitosano</h2>
+  <table>
+    <thead><tr><th>Agente</th><th>Mecanismo</th><th>Objetivo</th><th>Límite OIV</th></tr></thead>
+    <tbody>
+      <tr><td>SO₂</td><td>Inhibición enzimática y selección</td><td>General (bacterias, levaduras)</td><td>Sin límite de adición, límite total 210-400 mg/L</td></tr>
+      <tr><td>Lisozima</td><td>Hidrólisis de pared de Gram+</td><td>BAL, Pediococcus</td><td>500 mg/L</td></tr>
+      <tr><td>DMDC</td><td>Inactivación enzimática irreversible</td><td>Levaduras, BAL</td><td>200 mg/L (solo al embotellar)</td></tr>
+      <tr><td>Chitosano</td><td>Floculación de células</td><td>Brettanomyces</td><td>10 g/hL</td></tr>
+      <tr><td>Sorbato K</td><td>Inhibición de levaduras</td><td>Levaduras (no BAL)</td><td>200 mg/L</td></tr>
+    </tbody>
+  </table>
+  <div class="warning-box">
+    <div class="warning-box-title">⚠ Riesgo del sorbato de potasio</div>
+    El sorbato solo inhibe levaduras, no bacterias. Si se añade a un vino con bacterias lácticas activas, estas metabolizan el ácido sórbico produciendo 2-etoxi-3,5-dieno, un compuesto con un aroma intenso e irreversible a "geranio". Nunca usar sorbato sin haber completado la FML o asegurado la estabilidad microbiológica.
+  </div>
+  <div class="page-footer">19</div>
+</div>
+
+<!-- P17: CAP 5 TITULO -->
+<div class="page chapter-page">
+  <div class="chapter-number">Capítulo 5</div>
+  <div class="chapter-title">Defectos de Origen Químico y Físico</div>
+  <div class="chapter-line"></div>
+  <div class="chapter-intro">No todos los defectos son causados por microorganismos o por el oxígeno. Algunos tienen un origen puramente químico (contaminación ambiental) o físico (inestabilidad coloidal), y pueden aparecer incluso en vinos microbiológicamente sanos.</div>
+</div>
+
+<!-- P18 -->
+<div class="page">
+  <div class="page-header"><span>Capítulo 5 — Origen Químico y Físico</span><span>Defectos y Correcciones</span></div>
+  <h2>5.1 TCA y haloanisoles: el sabor a corcho</h2>
+  <p class="first-paragraph">El 2,4,6-tricloroanisol (TCA) es el compuesto responsable del temido "sabor a corcho". Su umbral de percepción es extremadamente bajo (1-10 ng/L en agua, 2-50 ng/L en vino). El TCA no es producido por el corcho, sino por la bioconversión microbiológica de los clorofenoles (utilizados como pesticidas y conservantes de la madera) en cloroanisoles por hongos del género <span class="species">Aspergillus</span>, <span class="species">Penicillium</span> y <span class="species">Fusarium</span>.</p>
+  <p>El TCA no se limita al corcho: puede contaminar barricas, paredes de la bodega (si se usaron pinturas con clorofenoles), e incluso el agua. Una bodega contaminada con TCA es casi imposible de recuperar.</p>
+  <h3>Corrección del TCA</h3>
+  <p>El TCA es extraordinariamente difícil de eliminar una vez disuelto en el vino. Las opciones son:</p>
+  <ul>
+    <li><strong>Carbón activo:</strong> Eficaz pero destructivo para los aromas del vino.</li>
+    <li><strong>Ósmosis inversa:</strong> Puede reducir el TCA, pero es costosa.</li>
+    <li><strong>Ensayos con polvo de corcho:</strong> Enología predictiva. Se sumerge polvo de corcho en una muestra de vino; si el defecto aparece, el lote de corchos está contaminado.</li>
+  </ul>
+  <h2>5.2 Geosmina y MIB: defectos terrosos</h2>
+  <p>La <strong>geosmina</strong> (trans-1,10-dimetil-trans-9-decalol) y el <strong>2-metilisoborneol (MIB)</strong> son compuestos terpenoides producidos por cianobacterias y actinomicetos del suelo. Se acumulan en la uva cuando el viñedo se riega con agua contaminada o cuando hay un desarrollo fúngico en el racimo. Sus umbrales son de 10-20 ng/L (geosmina) y 20-40 ng/L (MIB), y confieren olores a "tierra mojada", "remolacha" y "musgo". Son muy resistentes y no se eliminan con los tratamientos convencionales; solo el carbón activo muestra cierta eficacia.</p>
+  <div class="page-footer">21</div>
+</div>
+
+<!-- P19 -->
+<div class="page">
+  <div class="page-header"><span>Capítulo 5 — Origen Químico y Físico</span><span>Defectos y Correcciones</span></div>
+  <h2>5.3 Quiebras: férrica, cúprica, protéica y tartárica</h2>
+  <p>Las quiebras son alteraciones físicas que causan turbidez o precipitados en el vino. Aunque generalmente no afectan al sabor, hacen el vino comercialmente inaceptable.</p>
+  <h3>Quiebra férrica (casse azul)</h3>
+  <p>Se produce cuando el contenido de hierro supera 8-10 mg/L en vinos blancos (forma un precipitado blanco de fosfato férrico) o 15-20 mg/L en tintos (forma un precipitado azul-negro de tanino-fosfato férrico). El hierro proviene de la corrosión de equipos o del suelo. Se corrige con <strong>ácido cítrico</strong> (que quelata el Fe³⁺) o con <strong>ferrocianuro potásico</strong> (el "azul de Prusia" que precipita el hierro, pero es tóxico y requiere supervisión profesional).</p>
+  <h3>Quiebra cúprica (casse cobre)</h3>
+  <p>Causada por exceso de cobre (>0.5 mg/L), generalmente tras tratamientos con CuSO₄ excesivos. En condiciones reductoras (ausencia de O₂), el cobre forma un coloide oscuro (sulfuro cúprico). Aparece tras el embotellado cuando el vino se vuelve reductor. Se corrige con <strong>ferrocianuro</strong> o <strong>citratado de cobre</strong>.</p>
+  <h3>Quiebra protéica</h3>
+  <p>Las proteínas termolábiles del vino (taumatinas y quitinasas) se desnaturalizan con el calor o el paso del tiempo, formando un velo turbio. Se previene con <strong>bentonita</strong> (30-100 g/hL), que adsorbe las proteínas.</p>
+  <h3>Quiebra tartárica</h3>
+  <p>Cristalización del bitartrato potásico. Se previene con estabilización por frío, electrodialisis o CMC.</p>
+  <div class="warning-box">
+    <div class="warning-box-title">⚠ El ferrocianuro potásico: un tratamiento de riesgo</div>
+    El ferrocianuro (K₄[Fe(CN)₆]) es muy eficaz para eliminar hierro y cobre, pero el cianuro libre (CN⁻) es letal. Si se dosifica en exceso o en vinos muy ácidos, puede liberar HCN. Su uso está estrictamente regulado y debe realizarse bajo supervisión de un laboratorio, verificando que el vino tratado no contiene cianuro libre residual.
+  </div>
+  <h2>5.4 Correcciones de quiebras y estabilización</h2>
+  <p>La secuencia correcta de estabilización es: primero corregir los metales pesados (ferrocianuro), luego las proteínas (bentonita), y finalmente el tartrato (frío/CMC). Aplicar la bentonita antes del ferrocianuro puede inactivar el tratamiento metálico por adsorción.</p>
+  <div class="page-footer">23</div>
+</div>
+
+<!-- P20: CAP 6 TITULO -->
+<div class="page chapter-page">
+  <div class="chapter-number">Capítulo 6</div>
+  <div class="chapter-title">Tecnologías de Corrección y Legislación</div>
+  <div class="chapter-line"></div>
+  <div class="chapter-intro">La corrección de un vino defectuoso es un acto enológico que debe ser siempre el último recurso. Cuando se hace necesaria, debe realizarse con pleno conocimiento de las tecnologías disponibles y del marco legal vigente.</div>
+</div>
+
+<!-- P21 -->
+<div class="page">
+  <div class="page-header"><span>Capítulo 6 — Correcciones y Legislación</span><span>Defectos y Correcciones</span></div>
+  <h2>6.1 Ósmosis inversa y nanofiltración para VA</h2>
+  <p class="first-paragraph">La ósmosis inversa (OI) es la tecnología de referencia para la corrección de la acidez volátil. El proceso se realiza en tres etapas:</p>
+  <ol>
+    <li>El vino se presuriza a través de una membrana semipermeable, separando un permeado (agua, etanol, ácido acético) de un concentrado (polifenoles, azúcares, taninos).</li>
+    <li>El permeado se pasa por una resina de intercambio aniónico que retiene el acetato.</li>
+    <li>El permeado "desacetificado" se recombina con el concentrado.</li>
+  </ol>
+  <p>Este proceso permite reducir la AV en 0.2-0.5 g/L sin alterar significativamente los polifenoles ni la estructura del vino. Sin embargo, es costoso y está sujeto a legislación restrictiva: la OIV solo autoriza reducciones parciales de AV, y la AV final debe estar dentro de los límites legales.</p>
+  <h2>6.2 Carbones activos: selectividad y dosificación</h2>
+  <p>El carbón activo es el adsorbente más versátil y la herramienta de corrección más antigua. Su eficacia depende de su superficie específica (500-1500 m²/g), su distribución de poros y su origen (vegetal, mineral, animal). Los tipos principales son:</p>
+  <ul>
+    <li><strong>Carbones decolorantes:</strong> Alta capacidad de adsorción de pigmentos y fenoles. Se usan para corregir el pardeamiento y la contaminación por Brettanomyces.</li>
+    <li><strong>Carbones desodorantes:</strong> Alta capacidad de adsorción de compuestos volátiles (H₂S, DMS, geosmina). Menos eficaces contra fenoles.</li>
+    <li><strong>Carbones de tratamiento especial:</strong> Diseñados para adsorber ocratoxina A o TCA.</li>
+  </ul>
+  <p>La dosificación es crítica: demasiado poco no corrige el defecto; demasiado destruye el vino. Las dosis oscilan entre 10 y 100 g/hL, y siempre debe realizarse un ensayo previo a escala de laboratorio.</p>
+  <h2>6.3 Tratamientos con taninos enológicos protectores</h2>
+  <p>Los taninos enológicos (de madera de roble, de uva, de quebracho) se añaden no para corregir un defecto, sino para <strong>proteeger el vino</strong> contra la oxidación futura. Los taninos son "sacrificados" en lugar de los polifenoles del vino: reaccionan con el oxígeno y las quinonas, preservando los aromas y el color naturales. Este enfoque proactivo es la base de la <strong>enología preventiva</strong>.</p>
+  <h2>6.4 El marco legal: prácticas autorizadas y límites OIV</h2>
+  <p>La Organización Internacional de la Viña y el Vino (OIV) publica anualmente el Código Internacional de Prácticas Enológicas, que define qué tratamientos están permitidos y en qué condiciones. Los principios fundamentales son:</p>
+  <ul>
+    <li>No se puede añadir al vino nada que no esté explícitamente autorizado.</li>
+    <li>Las correcciones no deben enmascarar una materia prima de mala calidad.</li>
+    <li>Todos los tratamientos deben declararse y ser trazables.</li>
+    <li>Los límites analíticos (AV, SO₂, metales) son de cumplimiento obligatorio.</li>
+  </ul>
+  <div class="info-box">
+    <div class="info-box-title">📦 La regla de oro de las correcciones</div>
+    Una corrección nunca debe ser el sustituto de una buena práctica enológica. Si un vino necesita más de dos correcciones, probablemente debería ser desclasificado o destinado a destilación. La mejor corrección es la que no se necesita.
+  </div>
+  <div class="page-footer">25</div>
+</div>
+
+<!-- P22: APENDICE 1 - UMBRALES -->
+<div class="page">
+  <div class="page-header"><span>Apéndice A.1</span><span>Defectos y Correcciones</span></div>
+  <h2>Apéndice A.1: Umbrales Sensoriales de los Principales Defectos</h2>
+  <table>
+    <thead><tr><th>Compuesto</th><th>Defecto</th><th>Umbral en vino (μg/L)</th><th>Origen</th></tr></thead>
+    <tbody>
+      <tr><td>H₂S</td><td>Huevos podridos</td><td>10-50</td><td>Reducción / Levadura</td></tr>
+      <tr><td>Metanotiol</td><td>Col cocida</td><td>0.3-3</td><td>Reducción</td></tr>
+      <tr><td>Etanotiol</td><td>Cebolla, goma</td><td>1-10</td><td>Reducción</td></tr>
+      <tr><td>DMS</td><td>Maíz, trufa</td><td>25-60</td><td>Reducción / Envejecimiento</td></tr>
+      <tr><td>4-etilfenol</td><td>Establo, sudor</td><td>140-620</td><td>Brettanomyces</td></tr>
+      <tr><td>4-etilguayacol</td><td>Ahumado, clavo</td><td>35-110</td><td>Brettanomyces</td></tr>
+      <tr><td>Ác. acético</td><td>Vinagre</td><td>200,000-400,000</td><td>Acetobacter</td></tr>
+      <tr><td>Acetato de etilo</td><td>Disolvente, esmalte</td><td>7,500-12,000</td><td>Acetobacter / Levadura</td></tr>
+      <tr><td>Acetaldehído</td><td>Manzana oxidada</td><td>100,000-125,000</td><td>Oxidación / Levadura</td></tr>
+      <tr><td>TCA</td><td>Corcho, moho</td><td>2-50</td><td>Contaminación ambiental</td></tr>
+      <tr><td>Geosmina</td><td>Tierra mojada</td><td>10-20</td><td>Cianobacterias</td></tr>
+      <tr><td>Sotolón</td><td>Curry, rancio</td><td>7-10</td><td>Oxidación avanzada</td></tr>
+    </tbody>
+  </table>
+  <h2>Apéndice A.2: Tabla de Correcciones y Límites Legales (OIV)</h2>
+  <table>
+    <thead><tr><th>Defecto</th><th>Corrección</th><th>Dosis habitual</th><th>Límite / Restricción</th></tr></thead>
+    <tbody>
+      <tr><td>H₂S / Mercaptanos</td><td>CuSO₄·5H₂O</td><td>0.5-2.0 g/hL</td><td>Cu residual < 1 mg/L</td></tr>
+      <tr><td>H₂S (leve)</td><td>Aireación</td><td>Trasiego aireado</td><td>Riesgo de oxidación</td></tr>
+      <tr><td>Pardeamiento</td><td>Carbón decolorante</td><td>20-80 g/hL</td><td>No específico (tratamiento)</td></tr>
+      <tr><td>Pardeamiento</td><td>PVPP</td><td>10-50 g/hL</td><td>Debe eliminarse por filtración</td></tr>
+      <tr><td>Pinking</td><td>PVPP / Carbón</td><td>10-30 g/hL</td><td>Previo al embotellado</td></tr>
+      <tr><td>Brettanomyces</td><td>Chitosano</td><td>10 g/hL</td><td>OIV-OENO 338A-2009</td></tr>
+      <tr><td>Brettanomyces</td><td>DMDC</td><td>100-200 mg/L</td><td>Solo al embotellar</td></tr>
+      <tr><td>AV elevada</td><td>Ósmosis inversa</td><td>Variable</td><td>AV final dentro de límites legales</td></tr>
+      <tr><td>Graisse</td><td>β-glucanasas</td><td>1-3 g/hL</td><td>Enzima autorizada</td></tr>
+      <tr><td>Quiebra férrica</td><td>Ácido cítrico</td><td>100-300 mg/L</td><td>Ác. cítrico total < 1 g/L</td></tr>
+      <tr><td>Quiebra férrica/cúprica</td><td>Ferrocianuro K</td><td>Variable (cálculo)</td><td>CN⁻ libre = 0 (tratamiento bajo supervisión)</td></tr>
+      <tr><td>Quiebra protéica</td><td>Bentonita</td><td>30-100 g/hL</td><td>Sin límite, pero afecta aromas</td></tr>
+    </tbody>
+  </table>
+  <div class="page-footer">27</div>
+</div>
+
+<!-- P23-24: REFERENCIAS -->
+<div class="page">
+  <div class="page-header"><span>Referencias</span><span>Defectos y Correcciones</span></div>
+  <h2>Referencias Bibliográficas</h2>
+  <div class="reference">
+    <span class="reference-number">[1]</span> Ribéreau-Gayon, P., et al. (2006). <em>Handbook of Enology, Vol. 2: The Chemistry of Wine Stabilization and Treatments</em> (2nd ed.). John Wiley & Sons.
+  </div>
+  <div class="reference">
+    <span class="reference-number">[2]</span> Waterhouse, A.L., et al. (2016). <em>Understanding Wine Chemistry</em>. John Wiley & Sons.
+  </div>
+  <div class="reference">
+    <span class="reference-number">[3]</span> Chatonnet, P., et al. (1995). The influence of Brettanomyces/Dekkera sp. yeasts on the ethylphenol content of red wines. <em>American Journal of Enology and Viticulture</em>, 46(4), 463-468.
+  </div>
+  <div class="reference">
+    <span class="reference-number">[4]</span> Swiegers, J.H., et al. (2005). Yeast and bacterial modulation of wine aroma and flavour. <em>Aust. J. Grape Wine Res.</em>, 11(2), 139-173.
+  </div>
+  <div class="reference">
+    <span class="reference-number">[5]</span> Boulton, R.B., et al. (1999). <em>Principles and Practices of Winemaking</em>. Springer.
+  </div>
+  <div class="reference">
+    <span class="reference-number">[6]</span> Jackson, R.S. (2020). <em>Wine Science: Principles and Applications</em> (5th ed.). Academic Press.
+  </div>
+  <div class="reference">
+    <span class="reference-number">[7]</span> OIV (2024). <em>International Code of Oenological Practices</em>. Paris.
+  </div>
+  <div class="reference">
+    <span class="reference-number">[8]</span> Schopp, L., et al. (2013). Application of DMDC for the control of Brettanomyces. <em>Aust. J. Grape Wine Res.</em>, 19(S1), 1-8.
+  </div>
+  <div class="reference">
+    <span class="reference-number">[9]</span> Liger-Belair, G. (2005). The physics and chemistry behind the bubbling properties of champagne. <em>Elements</em>, 1(2), 107-111.
+  </div>
+  <div class="reference">
+    <span class="reference-number">[10]</span> Silva Pereira, C., et al. (2000). Musty off-odours in wine: the role of TCA. <em>J. Agric. Food Chem.</em>, 48(10), 4889-4895.
+  </div>
+  <div class="reference">
+    <span class="reference-number">[11]</span> Darriet, P., et al. (2000). Geosmin, a powerful earthy odorant impacting wine quality. <em>Vitis</em>, 39(4), 177-180.
+  </div>
+  <div class="reference">
+    <span class="reference-number">[12]</span> Bartowsky, E.J. (2009). Bacterial spoilage of wine and approaches to minimize it. <em>Lett. Appl. Microbiol.</em>, 48(2), 149-156.
+  </div>
+  <div class="reference">
+    <span class="reference-number">[13]</span> Zoecklein, B.W., et al. (1999). <em>Wine Analysis and Production</em>. Springer.
+  </div>
+  <div class="reference">
+    <span class="reference-number">[14]</span> Gómez Benítez, J. (2022). <em>Tecnología del Vino</em> (2ª ed.). Mundi-Prensa.
+  </div>
+  <div class="reference">
+    <span class="reference-number">[15]</span> Zamora, F. (2003). El flavor del vino. <em>Enoviticultura</em>, 1(1), 18-31.
+  </div>
+  <div class="page-footer">29</div>
+</div>
+
+<!-- P25: COLOFON -->
+<div class="page" style="display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;">
+  <div style="max-width:80%; margin:auto;">
+    <svg width="80" height="80" viewBox="0 0 100 100" style="margin-bottom:30px; opacity:0.5;">
+      <circle cx="50" cy="50" r="40" fill="none" stroke="#4A1526" stroke-width="2"/>
+      <line x1="30" y1="30" x2="70" y2="70" stroke="#C0392B" stroke-width="2.5"/>
+      <line x1="70" y1="30" x2="30" y2="70" stroke="#C0392B" stroke-width="2.5"/>
+      <circle cx="50" cy="50" r="20" fill="none" stroke="#37474F" stroke-width="1.5" stroke-dasharray="4,3"/>
+    </svg>
+    <p style="font-family:'Playfair Display',serif; font-size:18pt; color:var(--primary); font-weight:900; margin-bottom:10px;">Fin del documento</p>
+    <div style="width:80px; height:2px; background:var(--accent); margin:0 auto 20px;"></div>
+    <p style="font-family:'Playfair Display',serif; font-size:14pt; color:var(--accent); font-style:italic; margin-bottom:30px;">Defectos, Enfermedades y Correcciones del Vino</p>
+    <p style="font-size:11pt; color:var(--text-light);">Jose Guerrero — 2025</p>
+    <hr style="border:none; border-top:1px solid var(--border); margin:40px auto; width:50%;">
+    <p style="font-size:9pt; color:#999; line-height:1.7; max-width:70%; margin:auto;">
+      Este libro forma parte de una serie dedicada a la ciencia del vino.<br>
+      Volúmenes publicados: <em>Microbiología</em> · <em>Bioquímica</em> · <em>Terroir y Fisiología</em> · <em>Análisis Sensorial</em> · <em>Tecnología e Ingeniería</em> · <em>Vinos Espumosos</em> · <em>Defectos y Correcciones</em>
+    </p>
+  </div>
+  <div class="page-footer">31</div>
+</div>
+
+</body>
+</html>

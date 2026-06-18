@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diplomado en Ciencia y Tecnología del Vino — CYTV</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'] } } }
+        }
+    </script>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: #fdf2f8; position: relative; overflow-x: hidden; }
+        
+        /* Fondo Divertido */
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.4;
+            animation: float 15s infinite ease-in-out;
+        }
+        .blob-1 { width: 400px; height: 400px; background: #f472b6; top: -100px; left: -100px; }
+        .blob-2 { width: 350px; height: 350px; background: #c084fc; bottom: 10%; right: -50px; animation-delay: -5s; }
+        .blob-3 { width: 300px; height: 300px; background: #fb7185; top: 40%; left: 30%; animation-delay: -10s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .progress-fill { transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        .class-content { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease; opacity: 0; }
+        .class-content.open { max-height: 3000px; opacity: 1; }
+        .chevron-icon { transition: transform 0.3s ease; }
+        .chevron-icon.rotated { transform: rotate(180deg); }
+        .module-pill { transition: all 0.2s ease; }
+        .module-pill.active { background-color: #BE123C; color: white; box-shadow: 0 4px 14px rgba(190,18,60,0.3); }
+        .card-hover { transition: all 0.25s ease; }
+        .card-hover:hover { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1); transform: translateY(-2px); }
+        .fade-in { animation: fadeIn 0.4s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+        .shimmer { background: linear-gradient(90deg, transparent 30%, rgba(255,255,255,0.08) 50%, transparent 70%); background-size: 200% 100%; animation: shimmer 3s infinite; }
+        @keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+        .pop { animation: pop 0.3s ease; }
+        .toast { animation: toastIn 0.4s ease, toastOut 0.4s ease 2.6s forwards; }
+        @keyframes toastIn { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes toastOut { from { opacity: 1; } to { opacity: 0; transform: translateY(20px); } }
+        .hero-bg { background: linear-gradient(135deg, #1c1917 0%, #4c0519 40%, #831843 100%); position: relative; overflow: hidden; }
+        .hero-bg::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 20%, rgba(244,114,182,0.2) 0%, transparent 60%), radial-gradient(ellipse at 20% 80%, rgba(192,132,252,0.15) 0%, transparent 50%); }
+        .hero-bg::after { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M30 35c-5-5-10-5-10-10 0-5 5-5 10 0 5-5 10-5 10 0 0 5-5 5-10 10zm0-25a5 5 0 110 10 5 5 0 010-10z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+        .glass-card { background: rgba(255,255,255,0.05); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); }
+        .vimeo-btn { transition: all 0.2s ease; }
+        .vimeo-btn:hover { transform: translateX(2px); }
+        .info-card { transition: all 0.3s ease; }
+        .info-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+        
+        /* Estilos Medallas */
+        .badge-card { transition: all 0.3s ease; }
+        .badge-locked { filter: grayscale(100%); opacity: 0.4; transform: scale(0.95); }
+        .badge-unlocked { filter: none; opacity: 1; transform: scale(1); }
+        .badge-unlocked:hover { transform: scale(1.05) rotate(-2deg); }
+        @keyframes glow { 0% { box-shadow: 0 0 5px rgba(251,191,36,0.5); } 50% { box-shadow: 0 0 20px rgba(251,191,36,0.8); } 100% { box-shadow: 0 0 5px rgba(251,191,36,0.5); } }
+        .badge-glow { animation: glow 2s infinite; }
+    </style>
+</head>
+<body class="text-stone-800 min-h-screen">
+
+    <!-- Blobs de fondo divertidos -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2"></div>
+
+    <!-- Hero -->
+    <header class="hero-bg text-white relative z-10">
+        <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-6 pb-10 sm:pt-10 sm:pb-16">
+            <div class="flex items-center justify-between mb-8 sm:mb-12">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-rose-600 flex items-center justify-center shadow-lg"><span class="iconify text-white text-xl sm:text-2xl" data-icon="lucide:wine"></span></div>
+                    <div><p class="text-xs sm:text-sm text-pink-200 font-medium tracking-wide uppercase">Aula Virtual</p><p class="text-sm sm:text-base font-semibold text-white">Diplomado CYTV</p></div>
+                </div>
+                <button onclick="resetProgress()" class="text-xs text-pink-200 hover:text-white transition-colors flex items-center gap-1" title="Reiniciar progreso"><span class="iconify text-sm" data-icon="lucide:rotate-ccw"></span><span class="hidden sm:inline">Reiniciar</span></button>
+            </div>
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight mb-3">Diplomado en Ciencia<br class="hidden sm:block"> y Tecnología <span class="text-pink-400">del Vino</span></h1>
+            <p class="text-pink-100 text-sm sm:text-base mb-4 max-w-xl">Programa integral · 11 clases · 11 lecciones en video</p>
+            
+            <div class="flex items-center gap-4 mb-8">
+                <div class="glass-card rounded-xl p-3 sm:p-4 flex-1 flex items-center gap-4">
+                    <div class="w-14 h-14 rounded-full bg-gradient-to-br from-amber-400 to-rose-600 flex items-center justify-center text-2xl font-extrabold shadow-inner border-2 border-white/20">
+                        <span id="user-level">1</span>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-xs text-pink-200 font-medium">Nivel de Enólogo</p>
+                        <p class="text-lg font-bold text-white" id="user-rank">Aprendiz</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-8">
+                <div class="glass-card rounded-xl p-3 sm:p-4"><p class="text-2xl sm:text-3xl font-bold text-pink-400" id="stat-completed">0</p><p class="text-xs text-pink-200 mt-1">Completadas</p></div>
+                <div class="glass-card rounded-xl p-3 sm:p-4"><p class="text-2xl sm:text-3xl font-bold text-white">11</p><p class="text-xs text-pink-200 mt-1">Lecciones</p></div>
+                <div class="glass-card rounded-xl p-3 sm:p-4"><p class="text-2xl sm:text-3xl font-bold text-white">11</p><p class="text-xs text-pink-200 mt-1">Clases</p></div>
+                <div class="glass-card rounded-xl p-3 sm:p-4"><p class="text-2xl sm:text-3xl font-bold text-pink-400" id="stat-percent">0%</p><p class="text-xs text-pink-200 mt-1">Progreso</p></div>
+            </div>
+            <div class="relative">
+                <div class="flex justify-between items-center mb-2"><span class="text-xs text-pink-200 font-medium">Progreso general</span><span class="text-xs text-pink-400 font-semibold" id="progress-label">0 / 11</span></div>
+                <div class="w-full h-2.5 bg-stone-800 rounded-full overflow-hidden"><div class="progress-fill h-full bg-gradient-to-r from-rose-600 to-pink-400 rounded-full shimmer" id="progress-bar" style="width: 0%"></div></div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-pink-100 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6"><div class="flex gap-2 py-3 overflow-x-auto no-scrollbar" id="module-nav"></div></div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-10" id="course-content"></main>
+
+    <!-- SALÓN DE LA FAMA (MEDALLAS) -->
+    <section class="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+        <div class="text-center mb-10">
+            <h2 class="text-2xl sm:text-3xl font-bold text-rose-900 tracking-tight flex items-center justify-center gap-3">
+                <span class="iconify text-amber-500" data-icon="lucide:trophy"></span>
+                Salón de la Fama
+            </h2>
+            <p class="text-rose-400 mt-2">Desbloquea medallas completando los módulos del diplomado.</p>
+        </div>
+        <div id="badges-grid" class="grid grid-cols-2 md:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- Información Relevante -->
+    <section class="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+        <div class="text-center mb-10">
+            <h2 class="text-2xl sm:text-3xl font-bold text-rose-900 tracking-tight">Conceptos que todo Enólogo debe conocer</h2>
+            <p class="text-rose-400 mt-2">Profundiza en la ciencia detrás de cada copa. Extraído de nuestra biblioteca académica.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="info-card bg-white rounded-2xl p-6 shadow-sm border border-pink-100">
+                <div class="w-12 h-12 rounded-xl bg-rose-100 flex items-center justify-center mb-4">
+                    <span class="iconify text-rose-600 text-2xl" data-icon="lucide:palette"></span>
+                </div>
+                <h3 class="font-bold text-lg text-stone-800 mb-2">El misterio del Color</h3>
+                <p class="text-sm text-stone-600 leading-relaxed">El color del vino tinto no es estático. Los <strong>antocianos</strong> cambian de rojo a violeta o azul según el pH. Durante la crianza, reaccionan con los taninos formando polímeros estables que dan ese tono "teja-ladrillo" característico de los vinos añejos.</p>
+            </div>
+            <div class="info-card bg-white rounded-2xl p-6 shadow-sm border border-pink-100">
+                <div class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center mb-4">
+                    <span class="iconify text-purple-600 text-2xl" data-icon="lucide:alert-triangle"></span>
+                </div>
+                <h3 class="font-bold text-lg text-stone-800 mb-2">Oxidación vs. Reducción</h3>
+                <p class="text-sm text-stone-600 leading-relaxed">El oxígeno es amigo y enemigo. Un exceso produce pardeamiento y pérdida de aromas. Un déficit provoca "aromas reductivos" a huevo podrido (H₂S) o col cocida. El arte del enólogo es encontrar el potencial redox perfecto.</p>
+            </div>
+            <div class="info-card bg-white rounded-2xl p-6 shadow-sm border border-pink-100">
+                <div class="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center mb-4">
+                    <span class="iconify text-amber-600 text-2xl" data-icon="lucide:bug"></span>
+                </div>
+                <h3 class="font-bold text-lg text-stone-800 mb-2">Brettanomyces</h3>
+                <p class="text-sm text-stone-600 leading-relaxed">Esta levadura es la más temida en las bodegas. Convierte ácidos naturales en <strong>4-etilfenol</strong>, otorgando aromas a establo, sudor o barniz. Sin embargo, en algunas regiones tradicionales, se busca sutilmente como parte de la "tipicidad" del terruño.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Descargas PDF -->
+    <section class="max-w-5xl mx-auto px-4 sm:px-6 py-10 mb-10">
+        <div class="bg-white rounded-3xl shadow-xl border border-pink-100 overflow-hidden">
+            <div class="bg-gradient-to-r from-rose-800 to-pink-700 p-6 sm:p-8 text-white">
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="iconify text-3xl" data-icon="lucide:library"></span>
+                    <h2 class="text-2xl sm:text-3xl font-bold">Biblioteca del Vino</h2>
+                </div>
+                <p class="text-rose-100">Descarga los materiales de lectura complementarios del Diplomado.</p>
+            </div>
+            <div class="p-6 sm:p-8 grid md:grid-cols-2 gap-6">
+                <div class="bg-stone-50 rounded-2xl p-5 border border-stone-200 flex flex-col">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-16 h-20 bg-gradient-to-br from-rose-700 to-purple-800 rounded-lg shadow-lg flex items-center justify-center">
+                            <span class="iconify text-white text-3xl" data-icon="lucide:flask-conical"></span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-stone-800">Bioquímica del Vino</h3>
+                            <p class="text-xs text-stone-500">Jose Guerrero · 2025</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-stone-600 mb-4 flex-grow">Reacciones, compuestos y transformaciones químicas. Desde la glucólisis hasta la formación de aromas.</p>
+                    <button onclick="descargarPDF('bioquimica')" class="w-full flex items-center justify-center gap-2 bg-rose-600 hover:bg-rose-700 text-white text-sm font-semibold px-4 py-3 rounded-xl transition-colors">
+                        <span class="iconify text-lg" data-icon="lucide:download"></span>Descargar PDF
+                    </button>
+                </div>
+                <div class="bg-stone-50 rounded-2xl p-5 border border-stone-200 flex flex-col">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-16 h-20 bg-gradient-to-br from-purple-800 to-fuchsia-800 rounded-lg shadow-lg flex items-center justify-center">
+                            <span class="iconify text-white text-3xl" data-icon="lucide:bug-off"></span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-stone-800">Defectos y Correcciones</h3>
+                            <p class="text-xs text-stone-500">Jose Guerrero · 2025</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-stone-600 mb-4 flex-grow">Diagnóstico, bioquímica y tecnologías de recuperación. Guía completa para salvar vinos defectuosos.</p>
+                    <button onclick="descargarPDF('defectos')" class="w-full flex items-center justify-center gap-2 bg-purple-700 hover:bg-purple-800 text-white text-sm font-semibold px-4 py-3 rounded-xl transition-colors">
+                        <span class="iconify text-lg" data-icon="lucide:download"></span>Descargar PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-rose-950 text-rose-200 mt-12 relative z-10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-2"><span class="iconify text-rose-500 text-lg" data-icon="lucide:wine"></span><span class="text-white font-semibold text-sm">Diplomado CYTV</span></div>
+                <div class="text-center"><p class="text-xs text-rose-300">Diplomado en Ciencia y Tecnología del Vino</p><p class="text-xs text-rose-500 mt-0.5">Aula Virtual · Todos los derechos reservados</p></div>
+            </div>
+        </div>
+    </footer>
+
+<script>
+// =================================================================
+// ARCHIVOS PDF LOCALES (Deben estar en la misma carpeta que este HTML)
+// =================================================================
+var pdfFiles = {
+    bioquimica: "Bioquimica_del_Vino.pdf",
+    defectos: "Defectos_y_Correcciones_del_Vino.pdf"
+};
+
+var courseData = [
+    { id:'fundamentos', number:1, title:'Fundamentos del Mosto', icon:'lucide:book-open', description:'Introducción, fisiología de la maduración y química del mosto',
+      classes:[
+        {id:1,title:'Introducción',lessons:[{id:'1', url:'https://vimeo.com/1171033559/8277b89476', pass:null}]},
+        {id:2,title:'Fisiología de la Maduración',lessons:[{id:'2', url:'https://vimeo.com/1175259123/365645418e', pass:null}]},
+        {id:3,title:'Química del Mosto',lessons:[{id:'3', url:'https://vimeo.com/1175502403/4c336ca23f', pass:null}]}
+      ]},
+    { id:'microbiologia', number:2, title:'Microbiología y Fermentación', icon:'lucide:flask-conical', description:'Microorganismos y fermentación vinícola',
+      classes:[
+        {id:4,title:'Microbiología del Vino',lessons:[{id:'4', url:'https://vimeo.com/1177703895', pass:'VINO2'}]},
+        {id:7,title:'Fermentación Vinícola',lessons:[{id:'7', url:'https://vimeo.com/user114748323/clase7', pass:null}]}
+      ]},
+    { id:'elaboracion', number:3, title:'Elaboración de Vinos', icon:'lucide:grape', description:'Procesos para vinos tintos, blancos y rosados',
+      classes:[
+        {id:5,title:'Vino Tinto Elaboración',lessons:[{id:'5', url:'https://vimeo.com/user114748323/clase5', pass:'VINO3'}]},
+        {id:6,title:'Vino Blanco y Rosado',lessons:[{id:'6', url:'https://vimeo.com/user114748323/clase6', pass:'VINO2'}]}
+      ]},
+    { id:'crianza', number:4, title:'Crianza y Estabilización', icon:'lucide:wine', description:'Crianza, estabilización y embotellado del vino',
+      classes:[
+        {id:8,title:'Crianza, Estabilización y Embotellado',lessons:[{id:'8', url:'https://vimeo.com/1189744766/1859df6e86', pass:null}]}
+      ]},
+    { id:'laboratorio', number:5, title:'Laboratorio y Gestión', icon:'lucide:beaker', description:'Análisis de laboratorio y gestión de calidad',
+      classes:[
+        {id:9,title:'Laboratorio Microbiología',lessons:[{id:'9', url:'https://vimeo.com/1192079620/f342974c7f', pass:null}]},
+        {id:10,title:'Laboratorio Fisicoquímico',lessons:[{id:'10', url:'https://vimeo.com/1192589435', pass:null}]},
+        {id:11,title:'Gestión Calidad',lessons:[{id:'11', url:'https://vimeo.com/1201247196/b881926d10', pass:null}]}
+      ]}
+];
+
+// Configuración de Medallas
+var badges = [
+    {id:'b1', name:'Iniciado del Mosto', desc:'Completaste el Módulo 1', icon:'lucide:leaf', color:'bg-emerald-500', req:function(){ return isModuleComplete(courseData[0]); }},
+    {id:'b2', name:'Domador de Levaduras', desc:'Completaste el Módulo 2', icon:'lucide:bug', color:'bg-blue-500', req:function(){ return isModuleComplete(courseData[1]); }},
+    {id:'b3', name:'Alquimista del Color', desc:'Completaste el Módulo 3', icon:'lucide:palette', color:'bg-rose-500', req:function(){ return isModuleComplete(courseData[2]); }},
+    {id:'b4', name:'Guardián del Roble', desc:'Completaste el Módulo 4', icon:'lucide:tree-pine', color:'bg-amber-700', req:function(){ return isModuleComplete(courseData[3]); }},
+    {id:'b5', name:'Analista Maestro', desc:'Completaste el Módulo 5', icon:'lucide:microscope', color:'bg-purple-600', req:function(){ return isModuleComplete(courseData[4]); }},
+    {id:'b6', name:'Maestro Enólogo', desc:'Completaste todo el Diplomado', icon:'lucide:crown', color:'bg-amber-500', req:function(){ return getTotalLessons() === completedLessons.size; }}
+];
+
+var completedLessons = new Set();
+var openClasses = new Set();
+var unlockedBadges = new Set();
+
+function getTotalLessons() { return courseData.reduce(function(s,m){return s+m.classes.reduce(function(a,c){return a+c.lessons.length;},0);},0); }
+function getModuleLessons(m) { return m.classes.reduce(function(s,c){return s+c.lessons.length;},0); }
+function getModuleCompleted(m) { return m.classes.reduce(function(s,c){return s+c.lessons.filter(function(l){return completedLessons.has(l.id);}).length;},0); }
+function getClassCompleted(c) { return c.lessons.filter(function(l){return completedLessons.has(l.id);}).length; }
+function isClassComplete(c) { return c.lessons.every(function(l){return completedLessons.has(l.id);}); }
+function isModuleComplete(m) { return m.classes.every(function(c){return isClassComplete(c);}); }
+
+function saveProgress() { 
+    localStorage.setItem('wine-course-progress-v3', JSON.stringify(Array.from(completedLessons))); 
+    localStorage.setItem('wine-badges', JSON.stringify(Array.from(unlockedBadges))); 
+}
+function loadProgress() { 
+    try { 
+        var d=JSON.parse(localStorage.getItem('wine-course-progress-v3')); 
+        if(Array.isArray(d)) completedLessons=new Set(d); 
+        var b=JSON.parse(localStorage.getItem('wine-badges')); 
+        if(Array.isArray(b)) unlockedBadges=new Set(b); 
+    } catch(e){} 
+}
+
+function showToast(msg, type, isLong) {
+    var c=document.getElementById('toast-container'), t=document.createElement('div');
+    var bg=type==='warning'?'bg-amber-600':type==='success'?'bg-emerald-600':type==='badge'?'bg-gradient-to-r from-amber-500 to-rose-600':'bg-stone-700';
+    var ic=type==='warning'?'lucide:trophy':type==='success'?'lucide:check-circle':type==='badge'?'lucide:award':'lucide:info';
+    t.className='toast '+bg+' text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 text-sm font-medium min-w-[280px]';
+    t.innerHTML='<span class="iconify text-2xl flex-shrink-0" data-icon="'+ic+'"></span><div><p class="font-bold uppercase text-xs opacity-90">'+(type==='badge'?'¡Medalla Desbloqueada!':'Notificación')+'</p><p>'+msg+'</p></div>';
+    c.appendChild(t); 
+    var time = isLong ? 5000 : 3200;
+    setTimeout(function(){t.remove();}, time);
+}
+
+function renderModuleNav() {
+    var nav=document.getElementById('module-nav'), h='';
+    for(var i=0;i<courseData.length;i++){
+        var mod=courseData[i], d=getModuleCompleted(mod), t=getModuleLessons(mod), c=isModuleComplete(mod);
+        h+='<button onclick="scrollToModule(\''+mod.id+'\')" class="module-pill flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium border transition-all '+(c?'bg-emerald-50 border-emerald-200 text-emerald-700':'bg-white border-pink-200 text-rose-700 hover:border-rose-400 hover:text-rose-900')+'" data-module-pill="'+mod.id+'">';
+        h+= c?'<span class="iconify text-sm text-emerald-500" data-icon="lucide:check-circle-2"></span>':'<span class="text-rose-400">'+mod.number+'</span>';
+        h+='<span class="hidden sm:inline">'+mod.title+'</span><span class="sm:hidden">M'+mod.number+'</span>';
+        h+='<span class="text-[10px] opacity-60">'+d+'/'+t+'</span></button>';
+    }
+    nav.innerHTML=h;
+}
+
+function renderBadges() {
+    var grid=document.getElementById('badges-grid'), h='';
+    badges.forEach(function(b) {
+        var unlocked = unlockedBadges.has(b.id);
+        h+='<div class="badge-card flex flex-col items-center text-center p-6 bg-white rounded-2xl shadow-sm border '+(unlocked?'border-amber-300':'border-pink-100')+' '+(unlocked?'badge-unlocked':'badge-locked')+'">';
+        h+='<div class="w-20 h-20 rounded-full flex items-center justify-center mb-4 shadow-lg '+(unlocked?b.color+' badge-glow':'bg-stone-300')+'">';
+        h+='<span class="iconify text-white text-4xl" data-icon="'+b.icon+'"></span></div>';
+        h+='<h3 class="font-bold text-stone-800 text-sm">'+b.name+'</h3>';
+        h+='<p class="text-xs text-stone-500 mt-1">'+b.desc+'</p>';
+        if(unlocked) h+='<span class="mt-3 text-[10px] font-bold text-amber-600 bg-amber-100 px-2 py-0.5 rounded-full">DESBLOQUEADA</span>';
+        else h+='<span class="mt-3 text-[10px] font-bold text-stone-400 bg-stone-100 px-2 py-0.5 rounded-full flex items-center gap-1"><span class="iconify" data-icon="lucide:lock"></span>BLOQUEADA</span>';
+        h+='</div>';
+    });
+    grid.innerHTML=h;
+}
+
+function checkBadges() {
+    badges.forEach(function(b) {
+        if(!unlockedBadges.has(b.id) && b.req()) {
+            unlockedBadges.add(b.id);
+            showToast(b.name + ': ' + b.desc, 'badge', true);
+        }
+    });
+    renderBadges();
+}
+
+function getLevelInfo() {
+    var done = completedLessons.size;
+    if(done <= 2) return {level: 1, rank: 'Aprendiz'};
+    if(done <= 5) return {level: 2, rank: 'Catador'};
+    if(done <= 8) return {level: 3, rank: 'Bodeguero'};
+    if(done < 11) return {level: 4, rank: 'Enólogo'};
+    return {level: 5, rank: 'Maestro'};
+}
+
+function renderCourse() {
+    var main=document.getElementById('course-content');
+    var html='';
+
+    for(var mi=0;mi<courseData.length;mi++){
+        var mod=courseData[mi];
+        var md=getModuleCompleted(mod), mt=getModuleLessons(mod), mc=isModuleComplete(mod);
+        var mp=mt>0?Math.round((md/mt)*100):0;
+
+        html+='<section id="modulo-'+mod.id+'" class="mb-10 scroll-mt-20">';
+        html+='<div class="flex items-start gap-3 sm:gap-4 mb-5">';
+        html+='<div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl flex-shrink-0 flex items-center justify-center shadow-sm '+(mc?'bg-emerald-100':'bg-rose-100')+'">';
+        html+= mc?'<span class="iconify text-emerald-600 text-xl sm:text-2xl" data-icon="lucide:check-circle-2"></span>':'<span class="iconify text-rose-700 text-xl sm:text-2xl" data-icon="'+mod.icon+'"></span>';
+        html+='</div><div class="flex-1 min-w-0">';
+        html+='<div class="flex flex-wrap items-center gap-2 mb-1">';
+        html+='<span class="text-[10px] font-bold uppercase tracking-widest '+(mc?'text-emerald-600':'text-rose-700')+'">Módulo '+mod.number+'</span>';
+        if(mc) html+='<span class="text-[10px] font-bold uppercase tracking-widest text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">Completado</span>';
+        html+='</div>';
+        html+='<h2 class="text-lg sm:text-xl font-bold text-stone-800 tracking-tight">'+mod.title+'</h2>';
+        html+='<p class="text-xs sm:text-sm text-stone-500 mt-0.5">'+mod.description+'</p>';
+        html+='<div class="flex items-center gap-3 mt-2.5"><div class="flex-1 h-1.5 bg-pink-100 rounded-full overflow-hidden max-w-[200px]"><div class="h-full rounded-full transition-all duration-500 '+(mc?'bg-emerald-500':'bg-rose-500')+'" style="width:'+mp+'%"></div></div>';
+        html+='<span class="text-[11px] font-semibold '+(mc?'text-emerald-600':'text-rose-700')+'">'+md+'/'+mt+'</span></div>';
+        html+='</div></div>';
+        html+='<div class="space-y-2.5 ml-0 sm:ml-16">';
+
+        for(var ci=0;ci<mod.classes.length;ci++){
+            var cls=mod.classes[ci];
+            var cd=getClassCompleted(cls), ct=cls.lessons.length, cc=isClassComplete(cls), io=openClasses.has(cls.id);
+
+            html+='<div class="bg-white rounded-xl border '+(cc?'border-emerald-200':'border-pink-100')+' card-hover overflow-hidden shadow-sm">';
+            html+='<button onclick="toggleClass('+cls.id+')" class="w-full flex items-center gap-3 px-4 py-3.5 text-left hover:bg-pink-50 transition-colors">';
+            html+='<div class="w-8 h-8 rounded-lg flex-shrink-0 flex items-center justify-center text-xs font-bold '+(cc?'bg-emerald-100 text-emerald-600':cd>0?'bg-rose-100 text-rose-700':'bg-pink-50 text-rose-400')+'">';
+            html+= cc?'<span class="iconify text-sm" data-icon="lucide:check"></span>':cd>0?cd:cls.id;
+            html+='</div><div class="flex-1 min-w-0">';
+            html+='<p class="text-sm font-semibold text-stone-800 truncate">Clase '+cls.id+': '+cls.title+'</p>';
+            html+='<p class="text-[11px] text-stone-400 mt-0.5">'+ct+' lección'+(ct>1?'es':'')+' de video</p>';
+            html+='</div><div class="flex items-center gap-2 flex-shrink-0">';
+            if(cd>0&&!cc) html+='<span class="text-[10px] font-semibold text-rose-700 bg-rose-50 px-2 py-0.5 rounded-full">'+cd+'/'+ct+'</span>';
+            html+='<span class="iconify chevron-icon text-stone-400 text-lg '+(io?'rotated':'')+'" data-icon="lucide:chevron-down"></span>';
+            html+='</div></button>';
+            html+='<div class="class-content '+(io?'open':'')+'" id="class-content-'+cls.id+'">';
+            html+='<div class="px-4 pb-4 pt-1 space-y-2">';
+
+            for(var li=0;li<cls.lessons.length;li++){
+                var lesson=cls.lessons[li];
+                var done=completedLessons.has(lesson.id);
+                var vimeoUrl=lesson.url;
+
+                html+='<div class="fade-in rounded-lg '+(done?'bg-emerald-50/50':'bg-stone-50')+' overflow-hidden border '+(done?'border-emerald-100':'border-pink-100')+'">';
+                html+='<div class="flex items-center justify-between px-3 py-2.5">';
+                html+='<div class="flex items-center gap-2.5">';
+                html+='<button onclick="toggleLesson(\''+lesson.id+'\')" class="w-6 h-6 rounded-md border-2 flex items-center justify-center flex-shrink-0 transition-all '+(done?'bg-emerald-500 border-emerald-500':'border-stone-300 hover:border-rose-400')+'">';
+                if(done) html+='<span class="iconify text-white text-xs" data-icon="lucide:check"></span>';
+                html+='</button>';
+                html+='<p class="text-sm font-medium '+(done?'text-emerald-700':'text-stone-700')+'">Lección '+lesson.id;
+                if(done) html+=' <span class="text-emerald-500 text-xs">· Completada</span>';
+                html+='</p></div>';
+
+                html+='<div class="flex items-center gap-3">';
+                if(lesson.pass) {
+                    html += '<span class="text-[10px] font-medium text-stone-500 hidden sm:block">Pass: <span class="text-stone-800 font-bold tracking-wider">'+lesson.pass+'</span></span>';
+                }
+                
+                html+='<a href="'+vimeoUrl+'" target="_blank" rel="noopener" class="vimeo-btn text-xs font-semibold text-white bg-sky-600 hover:bg-sky-700 flex items-center gap-1.5 px-3 py-1.5 rounded-lg shadow-sm flex-shrink-0">';
+                html+='<span class="iconify text-sm" data-icon="lucide:play"></span>Ver en Video</a>';
+                html+='</div>';
+
+                html+='</div></div>';
+            }
+
+            html+='</div></div></div>';
+        }
+        html+='</div></section><hr class="border-pink-100 mb-10">';
+    }
+
+    main.innerHTML=html;
+}
+
+function updateProgress() {
+    var total=getTotalLessons(), done=completedLessons.size, percent=total>0?Math.round((done/total)*100):0;
+    document.getElementById('progress-bar').style.width=percent+'%';
+    document.getElementById('progress-label').textContent=done+' / '+total;
+    document.getElementById('stat-completed').textContent=done;
+    document.getElementById('stat-percent').textContent=percent+'%';
+    
+    // Actualizar Nivel
+    var lvlInfo = getLevelInfo();
+    document.getElementById('user-level').textContent = lvlInfo.level;
+    document.getElementById('user-rank').textContent = lvlInfo.rank;
+    
+    renderModuleNav();
+}
+
+function toggleClass(cid) {
+    if(openClasses.has(cid)) openClasses.delete(cid); else openClasses.add(cid);
+    var el=document.getElementById('class-content-'+cid), ch=el.previousElementSibling.querySelector('.chevron-icon');
+    if(openClasses.has(cid)){el.classList.add('open');ch.classList.add('rotated');}else{el.classList.remove('open');ch.classList.remove('rotated');}
+}
+
+function toggleLesson(lid) {
+    if(completedLessons.has(lid)) completedLessons.delete(lid);
+    else { 
+        completedLessons.add(lid); 
+        var b=event.currentTarget; b.classList.add('pop'); 
+        setTimeout(function(){b.classList.remove('pop');},300); 
+    }
+    saveProgress();
+    
+    for(var i=0;i<courseData.length;i++){
+        var m=courseData[i];
+        var w=document.querySelector('[data-module-pill="'+m.id+'"]');
+        if(w&&w.classList.contains('bg-emerald-50')==false&&isModuleComplete(m)){
+            (function(n){setTimeout(function(){showToast('🎉 ¡Módulo '+n+' completado!','warning');},300);})(m.number);
+        }
+    }
+    
+    if(completedLessons.size===getTotalLessons()) {
+        setTimeout(function(){showToast('🏆 ¡Felicidades! Completaste todo el diplomado','warning');},600);
+    }
+    
+    checkBadges();
+    renderCourse(); 
+    updateProgress();
+    
+    openClasses.forEach(function(cid){var el=document.getElementById('class-content-'+cid);if(el){el.classList.add('open');var c=el.previousElementSibling.querySelector('.chevron-icon');if(c)c.classList.add('rotated');}});
+}
+
+function scrollToModule(mid){var el=document.getElementById('modulo-'+mid);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
+
+function resetProgress(){
+    if(completedLessons.size===0 && unlockedBadges.size===0)return;
+    var o=document.createElement('div');o.className='fixed inset-0 z-50 flex items-center justify-center p-4';
+    o.innerHTML='<div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="this.parentElement.remove()"></div><div class="relative bg-white rounded-2xl shadow-2xl p-6 max-w-sm w-full fade-in"><div class="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-4"><span class="iconify text-red-500 text-2xl" data-icon="lucide:alert-triangle"></span></div><h3 class="text-lg font-bold text-stone-800 text-center mb-2">Reiniciar progreso</h3><p class="text-sm text-stone-500 text-center mb-6">¿Estás seguro? Se perderá todo el avance y medallas.</p><div class="flex gap-3"><button onclick="this.closest(\'.fixed\').remove()" class="flex-1 px-4 py-2.5 rounded-xl border border-stone-200 text-sm font-medium text-stone-600 hover:bg-stone-50 transition-colors">Cancelar</button><button onclick="confirmReset();this.closest(\'.fixed\').remove();" class="flex-1 px-4 py-2.5 rounded-xl bg-red-500 text-sm font-medium text-white hover:bg-red-600 transition-colors">Reiniciar</button></div></div>';
+    document.body.appendChild(o);
+}
+
+function confirmReset(){
+    completedLessons.clear();
+    openClasses.clear();
+    unlockedBadges.clear();
+    saveProgress();
+    renderCourse();
+    updateProgress();
+    renderBadges();
+    showToast('Progreso reiniciado','info');
+}
+
+// Función para descargar PDFs locales (fuerza la descarga directa)
+function descargarPDF(tipo) {
+    var fileName = pdfFiles[tipo];
+    if(!fileName) return;
+    
+    var a = document.createElement('a');
+    a.href = fileName;
+    a.download = fileName; // Esto le dice al navegador que lo descargue en lugar de abrirlo
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    
+    showToast('Iniciando descarga del PDF...', 'success');
+}
+
+// Inicialización
+loadProgress(); 
+renderCourse(); 
+updateProgress(); 
+renderBadges();
+
+var observer=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var mid=e.target.id.replace('modulo-','');document.querySelectorAll('[data-module-pill]').forEach(function(p){p.classList.remove('active');});var a=document.querySelector('[data-module-pill="'+mid+'"]');if(a&&!a.classList.contains('bg-emerald-50'))a.classList.add('active');}});},{rootMargin:'-30% 0px -60% 0px'});
+document.querySelectorAll('[id^="modulo-"]').forEach(function(el){observer.observe(el);});
+</script>
+
+</body>
+</html>
